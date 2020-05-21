@@ -27,6 +27,43 @@ private Usuario usuarioAutenticado;
        JifMoto.hide();
     }
 
+    
+     private void iniciarMenus(boolean estado) {
+        MnuVehiculos.setVisible(estado);
+        MnuCoche.setVisible(estado);
+        MnuFurgoneta.setVisible(estado);
+        MnuMoto.setVisible(estado);
+        MnuUsuarios.setVisible(estado);
+        MnuCrearUsuario.setVisible(estado);
+    }
+
+    private void gestionarPermisosMenu() {
+
+        switch (usuarioAutenticado.getTipoUsuario().getCodigo()) {
+            ///administrador
+            case "1":
+                iniciarMenus(true);
+                break;
+            ///alquiler
+            case "2":
+                iniciarMenus(false);
+                MnuUsuarios.setVisible(true);
+                MnuVehiculos.setVisible(true);
+                MnuMoto.setVisible(true);
+                MnuCoche.setVisible(true);
+                MnuFurgoneta.setVisible(true);
+                break;
+            ///Secretaria
+            case "3":
+                iniciarMenus(false);
+                MnuCoche.setVisible(true);
+                MnuMoto.setVisible(true);
+                MnuFurgoneta.setVisible(true);
+                MnuVehiculos.setVisible(true);
+                break;
+
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,13 +89,14 @@ private Usuario usuarioAutenticado;
         jTable2 = new javax.swing.JTable();
         menuBar = new javax.swing.JMenuBar();
         MmuLogin = new javax.swing.JMenu();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        saveMenuItem = new javax.swing.JMenuItem();
-        saveAsMenuItem = new javax.swing.JMenuItem();
-        exitMenuItem = new javax.swing.JMenuItem();
+        MnuVehiculos = new javax.swing.JMenu();
+        MnuCoche = new javax.swing.JMenuItem();
+        MnuFurgoneta = new javax.swing.JMenuItem();
+        MnuMoto = new javax.swing.JMenuItem();
+        MnuUsuarios = new javax.swing.JMenuItem();
+        MnuCrearUsuario = new javax.swing.JMenuItem();
+        MnuCerrarSesion = new javax.swing.JMenuItem();
+        MnuSalir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -217,55 +255,58 @@ private Usuario usuarioAutenticado;
         MmuLogin.setText("Menu");
         MmuLogin.setEnabled(false);
 
-        jMenu1.setText("Vehiculos");
+        MnuVehiculos.setText("Vehiculos");
 
-        jMenuItem1.setText("Coche");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        MnuCoche.setText("Coche");
+        MnuCoche.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                MnuCocheActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        MnuVehiculos.add(MnuCoche);
 
-        jMenuItem2.setText("Furgoneta");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        MnuFurgoneta.setText("Furgoneta");
+        MnuFurgoneta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                MnuFurgonetaActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        MnuVehiculos.add(MnuFurgoneta);
 
-        jMenuItem3.setText("Moto");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        MnuMoto.setText("Moto");
+        MnuMoto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                MnuMotoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        MnuVehiculos.add(MnuMoto);
 
-        MmuLogin.add(jMenu1);
+        MmuLogin.add(MnuVehiculos);
 
-        saveMenuItem.setMnemonic('s');
-        saveMenuItem.setText("Usuarios");
-        saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        MnuUsuarios.setMnemonic('s');
+        MnuUsuarios.setText("Usuarios");
+        MnuUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveMenuItemActionPerformed(evt);
+                MnuUsuariosActionPerformed(evt);
             }
         });
-        MmuLogin.add(saveMenuItem);
+        MmuLogin.add(MnuUsuarios);
 
-        saveAsMenuItem.setMnemonic('a');
-        saveAsMenuItem.setText("crear usuario");
-        MmuLogin.add(saveAsMenuItem);
+        MnuCrearUsuario.setMnemonic('a');
+        MnuCrearUsuario.setText("crear usuario");
+        MmuLogin.add(MnuCrearUsuario);
 
-        exitMenuItem.setMnemonic('x');
-        exitMenuItem.setText("Cerrar sesion");
-        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        MnuCerrarSesion.setMnemonic('x');
+        MnuCerrarSesion.setText("Cerrar sesion");
+        MnuCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitMenuItemActionPerformed(evt);
+                MnuCerrarSesionActionPerformed(evt);
             }
         });
-        MmuLogin.add(exitMenuItem);
+        MmuLogin.add(MnuCerrarSesion);
+
+        MnuSalir.setText("Salir");
+        MmuLogin.add(MnuSalir);
 
         menuBar.add(MmuLogin);
 
@@ -289,9 +330,9 @@ private Usuario usuarioAutenticado;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
+    private void MnuCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuCerrarSesionActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_exitMenuItemActionPerformed
+    }//GEN-LAST:event_MnuCerrarSesionActionPerformed
 
     private void BtnBotonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBotonIngresarActionPerformed
   
@@ -337,28 +378,28 @@ else{
         }
     }//GEN-LAST:event_BtnBotonIngresarActionPerformed
 
-    private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
+    private void MnuUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuUsuariosActionPerformed
         // TODO add your handling code here:
         
         JifUsuarios.show();
         
         
         
-    }//GEN-LAST:event_saveMenuItemActionPerformed
+    }//GEN-LAST:event_MnuUsuariosActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void MnuCocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuCocheActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_MnuCocheActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void MnuFurgonetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuFurgonetaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_MnuFurgonetaActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void MnuMotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuMotoActionPerformed
         // TODO add your handling code here:
         
         JifMoto.show();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_MnuMotoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -401,28 +442,26 @@ else{
     private javax.swing.JInternalFrame JifMoto;
     private javax.swing.JInternalFrame JifUsuarios;
     private javax.swing.JMenu MmuLogin;
+    private javax.swing.JMenuItem MnuCerrarSesion;
+    private javax.swing.JMenuItem MnuCoche;
+    private javax.swing.JMenuItem MnuCrearUsuario;
+    private javax.swing.JMenuItem MnuFurgoneta;
+    private javax.swing.JMenuItem MnuMoto;
+    private javax.swing.JMenuItem MnuSalir;
+    private javax.swing.JMenuItem MnuUsuarios;
+    private javax.swing.JMenu MnuVehiculos;
     private javax.swing.JPasswordField TxtContraseña;
     private javax.swing.JTextPane TxtCorreo;
     private javax.swing.JDesktopPane desktopPane;
-    private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenuItem saveAsMenuItem;
-    private javax.swing.JMenuItem saveMenuItem;
     // End of variables declaration//GEN-END:variables
 
-    private void gestionarPermisosMenu() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
 }
