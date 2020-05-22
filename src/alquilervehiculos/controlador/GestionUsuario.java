@@ -10,7 +10,8 @@ import java.util.List;
 public class GestionUsuario {
     
       private TipoUsuario[] tipoUsuarios;
-      private List<Usuario> usuarios;
+      public List<Usuario> usuarios;
+    
 
     public GestionUsuario() {
         llenarTiposUsuario();
@@ -26,7 +27,7 @@ public class GestionUsuario {
     }
     
     
-    private void llenarUsuarios()
+    public void llenarUsuarios()
     {
 //        usuarios = new Usuario[3];
 //        usuarios[0] = new Usuario("sebastian montes", "1002542616", "montess207@gmail.com", "1002542616", tipoUsuarios[0]);
@@ -51,6 +52,22 @@ public class GestionUsuario {
         }
         
         return null;
+    }
+
+    public TipoUsuario[] getTipoUsuarios() {
+        return tipoUsuarios;
+    }
+
+    public void setTipoUsuarios(TipoUsuario[] tipoUsuarios) {
+        this.tipoUsuarios = tipoUsuarios;
+    }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
    
     

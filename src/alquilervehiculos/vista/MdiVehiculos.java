@@ -7,9 +7,13 @@ package alquilervehiculos.vista;
 
 import alquilervehiculos.controlador.GestionUsuario;
 import alquilervehiculos.modelo.Usuario;
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -34,7 +38,7 @@ private Usuario usuarioAutenticado;
         MnuFurgoneta.setVisible(estado);
         MnuMoto.setVisible(estado);
         MnuUsuarios.setVisible(estado);
-        MnuCrearUsuario.setVisible(estado);
+        MnuCrearusuario.setVisible(estado);
     }
 
     private void gestionarPermisosMenu() {
@@ -80,13 +84,13 @@ private Usuario usuarioAutenticado;
         TxtContraseña = new javax.swing.JPasswordField();
         jScrollPane1 = new javax.swing.JScrollPane();
         TxtCorreo = new javax.swing.JTextPane();
-        BtnBotonIngresar = new javax.swing.JButton();
-        JifMoto = new javax.swing.JInternalFrame();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        BtnIngresar = new javax.swing.JButton();
         JifUsuarios = new javax.swing.JInternalFrame();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        TblUsuarios = new javax.swing.JTable();
+        JifMoto = new javax.swing.JInternalFrame();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TblMoto = new javax.swing.JTable();
         menuBar = new javax.swing.JMenuBar();
         MmuLogin = new javax.swing.JMenu();
         MnuVehiculos = new javax.swing.JMenu();
@@ -94,9 +98,9 @@ private Usuario usuarioAutenticado;
         MnuFurgoneta = new javax.swing.JMenuItem();
         MnuMoto = new javax.swing.JMenuItem();
         MnuUsuarios = new javax.swing.JMenuItem();
-        MnuCrearUsuario = new javax.swing.JMenuItem();
+        MnuCrearusuario = new javax.swing.JMenuItem();
         MnuCerrarSesion = new javax.swing.JMenuItem();
-        MnuSalir = new javax.swing.JMenuItem();
+        MnuSalirr = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,10 +115,10 @@ private Usuario usuarioAutenticado;
 
         jScrollPane1.setViewportView(TxtCorreo);
 
-        BtnBotonIngresar.setText("Ingresar");
-        BtnBotonIngresar.addActionListener(new java.awt.event.ActionListener() {
+        BtnIngresar.setText("Ingresar");
+        BtnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnBotonIngresarActionPerformed(evt);
+                BtnIngresarActionPerformed(evt);
             }
         });
 
@@ -134,8 +138,8 @@ private Usuario usuarioAutenticado;
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
                             .addComponent(TxtContraseña)))
                     .addGroup(JflmLoginLayout.createSequentialGroup()
-                        .addGap(114, 114, 114)
-                        .addComponent(BtnBotonIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(134, 134, 134)
+                        .addComponent(BtnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(108, Short.MAX_VALUE))
         );
         JflmLoginLayout.setVerticalGroup(
@@ -149,68 +153,23 @@ private Usuario usuarioAutenticado;
                 .addGroup(JflmLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(TxtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addComponent(BtnBotonIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addGap(48, 48, 48)
+                .addComponent(BtnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         desktopPane.add(JflmLogin);
-        JflmLogin.setBounds(20, 20, 420, 280);
-
-        JifMoto.setClosable(true);
-        JifMoto.setIconifiable(true);
-        JifMoto.setMaximizable(true);
-        JifMoto.setResizable(true);
-        JifMoto.setVisible(true);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Matricula", "Km", "Estado", "Valor alquiler", "Casco"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Boolean.class, java.lang.Double.class, java.lang.Boolean.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(jTable1);
-
-        javax.swing.GroupLayout JifMotoLayout = new javax.swing.GroupLayout(JifMoto.getContentPane());
-        JifMoto.getContentPane().setLayout(JifMotoLayout);
-        JifMotoLayout.setHorizontalGroup(
-            JifMotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JifMotoLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        JifMotoLayout.setVerticalGroup(
-            JifMotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JifMotoLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(109, Short.MAX_VALUE))
-        );
-
-        desktopPane.add(JifMoto);
-        JifMoto.setBounds(460, 40, 510, 340);
+        JflmLogin.setBounds(30, 30, 420, 280);
 
         JifUsuarios.setClosable(true);
+        JifUsuarios.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         JifUsuarios.setIconifiable(true);
         JifUsuarios.setMaximizable(true);
         JifUsuarios.setResizable(true);
-        JifUsuarios.setVisible(true);
+        JifUsuarios.setTitle("Listado De Usuarios");
+        JifUsuarios.setVisible(false);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        TblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -229,7 +188,7 @@ private Usuario usuarioAutenticado;
                 return types [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable2);
+        jScrollPane3.setViewportView(TblUsuarios);
 
         javax.swing.GroupLayout JifUsuariosLayout = new javax.swing.GroupLayout(JifUsuarios.getContentPane());
         JifUsuarios.getContentPane().setLayout(JifUsuariosLayout);
@@ -250,6 +209,55 @@ private Usuario usuarioAutenticado;
 
         desktopPane.add(JifUsuarios);
         JifUsuarios.setBounds(170, 30, 519, 371);
+
+        JifMoto.setClosable(true);
+        JifMoto.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        JifMoto.setIconifiable(true);
+        JifMoto.setMaximizable(true);
+        JifMoto.setResizable(true);
+        JifMoto.setTitle("Listado de Motos");
+        JifMoto.setVisible(false);
+
+        TblMoto.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Matricula", "Km", "Estado", "Valor alquiler", "Casco"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Boolean.class, java.lang.Double.class, java.lang.Boolean.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(TblMoto);
+
+        javax.swing.GroupLayout JifMotoLayout = new javax.swing.GroupLayout(JifMoto.getContentPane());
+        JifMoto.getContentPane().setLayout(JifMotoLayout);
+        JifMotoLayout.setHorizontalGroup(
+            JifMotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JifMotoLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        JifMotoLayout.setVerticalGroup(
+            JifMotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JifMotoLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(117, Short.MAX_VALUE))
+        );
+
+        desktopPane.add(JifMoto);
+        JifMoto.setBounds(210, 10, 510, 352);
 
         MmuLogin.setMnemonic('f');
         MmuLogin.setText("Menu");
@@ -292,9 +300,8 @@ private Usuario usuarioAutenticado;
         });
         MmuLogin.add(MnuUsuarios);
 
-        MnuCrearUsuario.setMnemonic('a');
-        MnuCrearUsuario.setText("crear usuario");
-        MmuLogin.add(MnuCrearUsuario);
+        MnuCrearusuario.setText("Crear usuario");
+        MmuLogin.add(MnuCrearusuario);
 
         MnuCerrarSesion.setMnemonic('x');
         MnuCerrarSesion.setText("Cerrar sesion");
@@ -305,8 +312,13 @@ private Usuario usuarioAutenticado;
         });
         MmuLogin.add(MnuCerrarSesion);
 
-        MnuSalir.setText("Salir");
-        MmuLogin.add(MnuSalir);
+        MnuSalirr.setText("Salir");
+        MnuSalirr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnuSalirrActionPerformed(evt);
+            }
+        });
+        MmuLogin.add(MnuSalirr);
 
         menuBar.add(MmuLogin);
 
@@ -331,23 +343,76 @@ private Usuario usuarioAutenticado;
     }// </editor-fold>//GEN-END:initComponents
 
     private void MnuCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuCerrarSesionActionPerformed
-        System.exit(0);
+         MmuLogin.setEnabled(false);
+        TxtCorreo.setText("");
+        TxtContraseña.setText("");
+        usuarioAutenticado = null;
+        iniciarMenus(false);
+        JflmLogin.show();
+
+
     }//GEN-LAST:event_MnuCerrarSesionActionPerformed
 
-    private void BtnBotonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBotonIngresarActionPerformed
-  
-        if(TxtCorreo.getText()==null || TxtCorreo.getText().compareTo("")==0)
-        {
+     private void pintarUsuarios() {
+        DefaultTableModel model = (DefaultTableModel) TblUsuarios.getModel();
+        model.getDataVector().removeAllElements();
+        for (Usuario usuario: gestionUsuario.getUsuarios()) {
+            model.addRow(usuario.obtenerArregloObjeto());
+        }
+        TblUsuarios.setModel(model);
+
+    }
+
+    
+    
+    private void MnuUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuUsuariosActionPerformed
+        // TODO add your handling code here:
+         gestionUsuario.llenarUsuarios();
+        pintarUsuarios();
+        JifUsuarios.repaint();
+        JifUsuarios.show();
+        if (JifUsuarios.isIcon()) {
+            try {
+                JifUsuarios.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(MdiVehiculos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        
+    }//GEN-LAST:event_MnuUsuariosActionPerformed
+
+    private void MnuCocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuCocheActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MnuCocheActionPerformed
+
+    private void MnuFurgonetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuFurgonetaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MnuFurgonetaActionPerformed
+
+    private void MnuMotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuMotoActionPerformed
+        // TODO add your handling code here:
+        
+        JifMoto.show();
+        
+         if (JifMoto.isIcon()) {
+            try {
+                JifMoto.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(MdiVehiculos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_MnuMotoActionPerformed
+
+    private void BtnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnIngresarActionPerformed
+        // TODO add your handling code here:
+          if(TxtCorreo.getText()==null || TxtCorreo.getText().compareTo("")==0){
             JOptionPane.showMessageDialog(this,  
                     "Debe diligenciar el correo","Datos Faltantes",2);
-}
-        else if(TxtContraseña.getPassword().length == 0)
-        {
+        }else if(TxtContraseña.getPassword().length == 0){
             JOptionPane.showMessageDialog(this,  
                     "Debe diligenciar la contraseña","Datos Faltantes",2);
-        }
-
-else{
+        } else{
               gestionUsuario = new GestionUsuario();
 
             //Significa que diligencio correo y contraseña
@@ -376,32 +441,8 @@ else{
             }
 
         }
-    }//GEN-LAST:event_BtnBotonIngresarActionPerformed
-
-    private void MnuUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuUsuariosActionPerformed
-        // TODO add your handling code here:
-        
-        JifUsuarios.show();
-        
-        
-        
-    }//GEN-LAST:event_MnuUsuariosActionPerformed
-
-    private void MnuCocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuCocheActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MnuCocheActionPerformed
-
-    private void MnuFurgonetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuFurgonetaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MnuFurgonetaActionPerformed
-
-    private void MnuMotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuMotoActionPerformed
-        // TODO add your handling code here:
-        
-        JifMoto.show();
-    }//GEN-LAST:event_MnuMotoActionPerformed
-
-    /**
+    }             
+           /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -436,20 +477,35 @@ else{
         });
     }
 
+    
+    
+
+    
+     {
+    }//GEN-LAST:event_BtnIngresarActionPerformed
+
+    private void MnuSalirrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuSalirrActionPerformed
+        // TODO add your handling code here:
+         System.exit(0);
+    }//GEN-LAST:event_MnuSalirrActionPerformed
+                            
+////
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnBotonIngresar;
+    private javax.swing.JButton BtnIngresar;
     private javax.swing.JInternalFrame JflmLogin;
     private javax.swing.JInternalFrame JifMoto;
     private javax.swing.JInternalFrame JifUsuarios;
     private javax.swing.JMenu MmuLogin;
     private javax.swing.JMenuItem MnuCerrarSesion;
     private javax.swing.JMenuItem MnuCoche;
-    private javax.swing.JMenuItem MnuCrearUsuario;
+    private javax.swing.JMenuItem MnuCrearusuario;
     private javax.swing.JMenuItem MnuFurgoneta;
     private javax.swing.JMenuItem MnuMoto;
-    private javax.swing.JMenuItem MnuSalir;
+    private javax.swing.JMenuItem MnuSalirr;
     private javax.swing.JMenuItem MnuUsuarios;
     private javax.swing.JMenu MnuVehiculos;
+    private javax.swing.JTable TblMoto;
+    private javax.swing.JTable TblUsuarios;
     private javax.swing.JPasswordField TxtContraseña;
     private javax.swing.JTextPane TxtCorreo;
     private javax.swing.JDesktopPane desktopPane;
@@ -458,10 +514,8 @@ else{
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
 
-    
-}
+     } 
+

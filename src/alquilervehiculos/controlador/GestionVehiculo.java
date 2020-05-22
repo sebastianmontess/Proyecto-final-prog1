@@ -17,11 +17,27 @@ public class GestionVehiculo {
     private List<AbstractVehiculo> vehiculos;
     
     
-      private void llenarMotos()
+      public void llenarMotos()
     {
         //cargar el csv
         vehiculos=LeerArchivoPlano.cargarMotos(vehiculos);
         
     
     }
+      
+      public void llenarCoches()
+      {
+          //cargar el csv
+           vehiculos=LeerArchivoPlano.cargarCoches(vehiculos);
+      }
+      
+      
+       public void llenarFurgonetas()
+      {
+          //cargar el csv
+           vehiculos=LeerArchivoPlano.cargarFurgonetas(vehiculos);
+      }
+      
+      
+      
 }

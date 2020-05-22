@@ -5,11 +5,11 @@ import java.io.Serializable;
 
 
 public class Usuario implements Serializable {
-    private String nombre;
-    private String cedula;
-    private String correo;
-    private String password;
-    private TipoUsuario tipoUsuario;
+    public String nombre;
+    public String cedula;
+    public String correo;
+    public String password;
+    public TipoUsuario tipoUsuario;
 
     public Usuario(String nombre, String cedula, String correo, String password, TipoUsuario tipoUsuario) {
         this.nombre = nombre;
@@ -69,6 +69,10 @@ public class Usuario implements Serializable {
     }
     
     
+     public Object[] obtenerArregloObjeto(){
+        Object[] data={ getNombre(),getCedula(),getCorreo(),getPassword(),getTipoUsuario()};
+        return data;
+    }
     
 
     
