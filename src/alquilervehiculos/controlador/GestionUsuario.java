@@ -1,6 +1,7 @@
 
 package alquilervehiculos.controlador;
 
+import alquilervehiculos.modelo.Cliente;
 import alquilervehiculos.modelo.TipoUsuario;
 import alquilervehiculos.modelo.Usuario;
 import alquilervehiculos.utilidades.LeerArchivoPlano;
@@ -11,7 +12,7 @@ public class GestionUsuario {
     
       private TipoUsuario[] tipoUsuarios;
       public List<Usuario> usuarios;
-    
+     private List<Cliente> clientes;
 
     public GestionUsuario() {
         llenarTiposUsuario();
@@ -38,6 +39,10 @@ public class GestionUsuario {
         usuarios=LeerArchivoPlano.cargarUsuarios(tipoUsuarios);
         
     
+    }
+     public void llenarClientes() {
+        
+        clientes = LeerArchivoPlano.cargarClientes(tipoUsuarios);
     }
     
     public Usuario encontrarUsuario(String correo, String password)
