@@ -6,7 +6,11 @@
 package alquilervehiculos.controlador;
 
 import alquilervehiculos.modelo.AbstractVehiculo;
+import alquilervehiculos.modelo.Coche;
+import alquilervehiculos.modelo.Furgoneta;
+import alquilervehiculos.modelo.Moto;
 import alquilervehiculos.utilidades.LeerArchivoPlano;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,27 +21,74 @@ public class GestionVehiculo {
     private List<AbstractVehiculo> vehiculos;
     
     
-      public void llenarMotos()
-    {
-        //cargar el csv
-        vehiculos=LeerArchivoPlano.cargarMotos(vehiculos);
-        
+      
+    public GestionVehiculo() {
+
+        llenarVehiculos();
+       
+
+    }
     
+    public void llenarVehiculos() {
+        vehiculos = new ArrayList<>();
+
+        vehiculos = LeerArchivoPlano.cargarMotos();
+
+        if (vehiculos == null || vehiculos.isEmpty()) {
+            vehiculos = LeerArchivoPlano.cargarMotos();
+        }
+    }
+    
+    
+    
+    public List<AbstractVehiculo> getVehiculos() {
+        return vehiculos;
+    }
+
+    public void setVehiculos(List<AbstractVehiculo> vehiculos) {
+        this.vehiculos = vehiculos;
     }
       
-      public void llenarCoches()
-      {
-          //cargar el csv
-           vehiculos=LeerArchivoPlano.cargarCoches(vehiculos);
-      }
       
-      
-       public void llenarFurgonetas()
-      {
-          //cargar el csv
-           vehiculos=LeerArchivoPlano.cargarFurgonetas(vehiculos);
-      }
-      
-      
-      
+       public List<AbstractVehiculo> obtenerVehiculos(String tipo) {
+
+        List<AbstractVehiculo> listaTemporal = new ArrayList<>();
+
+        //Ciclo para recorrer todos los vehiculos y extraer lo neceario 
+        for (AbstractVehiculo vehiculo : vehiculos) {
+
+            switch (tipo) {
+                case "Coche":
+                    if (vehiculo instanceof Coche) {
+                        listaTemporal.add(vehiculo);
+
+                    }
+                    break;
+
+                case "Moto":
+                    if (vehiculo instanceof Moto) {
+                        listaTemporal.add(vehiculo);
+                    }
+                    break;
+
+                case "Furgoneta":
+                    if (vehiculo instanceof Furgoneta) {
+                        listaTemporal.add(vehiculo);
+                    }
+                    break;
+
+                case "Vehiculos":
+                    if (vehiculo instanceof AbstractVehiculo) {
+                        listaTemporal.add(vehiculo);
+                    }
+                    break;
+
+            }
+
+        }
+        return listaTemporal;
+
+    }
+
+   
 }

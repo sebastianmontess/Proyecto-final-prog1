@@ -3,6 +3,7 @@
 package alquilervehiculos.utilidades;
 
 import alquilervehiculos.modelo.AbstractVehiculo;
+import alquilervehiculos.modelo.Cliente;
 import alquilervehiculos.modelo.Coche;
 import alquilervehiculos.modelo.Furgoneta;
 import alquilervehiculos.modelo.Moto;
@@ -54,7 +55,7 @@ public class LeerArchivoPlano {
         return listado;
     }
 
-    
+    //////cargar vehiculos///
     public static  List<AbstractVehiculo> cargarMotos (List<AbstractVehiculo> vehiculos){
         List<AbstractVehiculo> listado= new ArrayList<>();
         File archivo = null;
@@ -89,14 +90,7 @@ public class LeerArchivoPlano {
             }
         }
 
-        return listado;
-    }
-    
-     public static  List<AbstractVehiculo> cargarCoches (List<AbstractVehiculo> vehiculos){
-        List<AbstractVehiculo> listado= new ArrayList<>();
-        File archivo = null;
-        FileReader fr = null;
-        BufferedReader br = null;
+       
          try {
             archivo = new File("src/Coche.txt");
             fr = new FileReader(archivo);
@@ -125,14 +119,7 @@ public class LeerArchivoPlano {
                 e2.printStackTrace();
             }
         }
-         return listado;
-    }
-    
-      public static  List<AbstractVehiculo> cargarFurgonetas (List<AbstractVehiculo> vehiculos){
-        List<AbstractVehiculo> listado= new ArrayList<>();
-        File archivo = null;
-        FileReader fr = null;
-        BufferedReader br = null;
+     
          try {
             archivo = new File("src/Furgoneta.txt");
             fr = new FileReader(archivo);
@@ -162,6 +149,55 @@ public class LeerArchivoPlano {
             }
         }
          return listado;
+    }
+    
+    
+    ///// cargar clientes////
+    
+    public static List<Cliente> cargarClientes(TipoUsuario[] tipos) {
+        List<Cliente> listado = new ArrayList<>(); 
+        File archivo = null; 
+        FileReader fr = null; 
+        BufferedReader br = null; 
+
+        try {
+            archivo = new File("src/clientes.txt"); 
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            // Lectura del fichero
+            String linea;
+//            
+            while ((linea = br.readLine()) != null) { 
+
+                String[] datos = linea.split(","); 
+
+                Cliente cliente = new Cliente(datos[0], datos[1], tipos[Integer.parseInt(datos[2]) - 1]);
+
+                listado.add(cliente);
+
+            }
+        } catch (Exception e) {
+            System.out.println("El archivo no existe clientes = " + e.getMessage());
+        } finally {
+            try {
+                if (null != fr) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+
+        return listado;
+        
+    }
+
+    public static List<AbstractVehiculo> cargarCoches(List<AbstractVehiculo> vehiculos) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public static List<AbstractVehiculo> cargarMotos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

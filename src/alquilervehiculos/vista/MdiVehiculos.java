@@ -6,6 +6,9 @@
 package alquilervehiculos.vista;
 
 import alquilervehiculos.controlador.GestionUsuario;
+import alquilervehiculos.controlador.GestionVehiculo;
+import alquilervehiculos.modelo.AbstractVehiculo;
+import alquilervehiculos.modelo.Moto;
 import alquilervehiculos.modelo.Usuario;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
@@ -22,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 public class MdiVehiculos extends javax.swing.JFrame {
 private GestionUsuario gestionUsuario;
 private Usuario usuarioAutenticado;
+private GestionVehiculo gestionVehiculo;
     /**
      * Creates new form MdiVehiculos
      */
@@ -91,12 +95,21 @@ private Usuario usuarioAutenticado;
         JifMoto = new javax.swing.JInternalFrame();
         jScrollPane2 = new javax.swing.JScrollPane();
         TblMoto = new javax.swing.JTable();
+        JifCoche = new javax.swing.JInternalFrame();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        TblCoche = new javax.swing.JTable();
+        JifFurgoneta = new javax.swing.JInternalFrame();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        TblFurgoneta = new javax.swing.JTable();
         menuBar = new javax.swing.JMenuBar();
         MmuLogin = new javax.swing.JMenu();
         MnuVehiculos = new javax.swing.JMenu();
         MnuCoche = new javax.swing.JMenuItem();
         MnuFurgoneta = new javax.swing.JMenuItem();
         MnuMoto = new javax.swing.JMenuItem();
+        MnuInformes = new javax.swing.JMenu();
+        MnuInformeVehiculos = new javax.swing.JMenuItem();
+        MnuInformeAlquilados = new javax.swing.JMenuItem();
         MnuUsuarios = new javax.swing.JMenuItem();
         MnuCrearusuario = new javax.swing.JMenuItem();
         MnuCerrarSesion = new javax.swing.JMenuItem();
@@ -259,6 +272,103 @@ private Usuario usuarioAutenticado;
         desktopPane.add(JifMoto);
         JifMoto.setBounds(210, 10, 510, 352);
 
+        JifCoche.setClosable(true);
+        JifCoche.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        JifCoche.setIconifiable(true);
+        JifCoche.setMaximizable(true);
+        JifCoche.setResizable(true);
+        JifCoche.setTitle("Listado De Coches");
+        JifCoche.setVisible(false);
+
+        TblCoche.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Matricula", "Km", "Estado", "Valor alquiler", "Extras"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Boolean.class, java.lang.Double.class, java.lang.Boolean.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(TblCoche);
+
+        javax.swing.GroupLayout JifCocheLayout = new javax.swing.GroupLayout(JifCoche.getContentPane());
+        JifCoche.getContentPane().setLayout(JifCocheLayout);
+        JifCocheLayout.setHorizontalGroup(
+            JifCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JifCocheLayout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        JifCocheLayout.setVerticalGroup(
+            JifCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JifCocheLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(139, Short.MAX_VALUE))
+        );
+
+        desktopPane.add(JifCoche);
+        JifCoche.setBounds(460, 70, 510, 340);
+
+        JifFurgoneta.setClosable(true);
+        JifFurgoneta.setIconifiable(true);
+        JifFurgoneta.setMaximizable(true);
+        JifFurgoneta.setResizable(true);
+        JifFurgoneta.setTitle("Listado De Furgonetas");
+        JifFurgoneta.setVisible(false);
+
+        TblFurgoneta.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Matricula", "Km", "Estado", "Valor alquiler", "Capacidad"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Boolean.class, java.lang.Double.class, java.lang.Short.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(TblFurgoneta);
+
+        javax.swing.GroupLayout JifFurgonetaLayout = new javax.swing.GroupLayout(JifFurgoneta.getContentPane());
+        JifFurgoneta.getContentPane().setLayout(JifFurgonetaLayout);
+        JifFurgonetaLayout.setHorizontalGroup(
+            JifFurgonetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JifFurgonetaLayout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(167, Short.MAX_VALUE))
+        );
+        JifFurgonetaLayout.setVerticalGroup(
+            JifFurgonetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JifFurgonetaLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(82, Short.MAX_VALUE))
+        );
+
+        desktopPane.add(JifFurgoneta);
+        JifFurgoneta.setBounds(350, 110, 490, 310);
+
         MmuLogin.setMnemonic('f');
         MmuLogin.setText("Menu");
         MmuLogin.setEnabled(false);
@@ -290,6 +400,16 @@ private Usuario usuarioAutenticado;
         MnuVehiculos.add(MnuMoto);
 
         MmuLogin.add(MnuVehiculos);
+
+        MnuInformes.setText("Informes");
+
+        MnuInformeVehiculos.setText("Informe vehiculos");
+        MnuInformes.add(MnuInformeVehiculos);
+
+        MnuInformeAlquilados.setText("Alquilados");
+        MnuInformes.add(MnuInformeAlquilados);
+
+        MmuLogin.add(MnuInformes);
 
         MnuUsuarios.setMnemonic('s');
         MnuUsuarios.setText("Usuarios");
@@ -382,17 +502,85 @@ private Usuario usuarioAutenticado;
         
     }//GEN-LAST:event_MnuUsuariosActionPerformed
 
+    
+     private void pintarCoches() {
+        DefaultTableModel model = (DefaultTableModel) TblCoche.getModel();
+        model.getDataVector().removeAllElements();
+        
+        for (AbstractVehiculo coche:gestionVehiculo.obtenerVehiculos("Coche")) {
+            model.addRow(coche.obtenerArregloObjeto());
+        }
+        TblCoche.setModel(model);
+
+    }
+
+    
+    
+    
     private void MnuCocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuCocheActionPerformed
         // TODO add your handling code here:
+         pintarCoches();
+        JifCoche.repaint();
+        JifCoche.show();
+        
+         if (JifCoche.isIcon()) {
+            try {
+                JifCoche.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(MdiVehiculos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+       
     }//GEN-LAST:event_MnuCocheActionPerformed
 
+    
+    
+     private void pintarFurgonetas() {
+        DefaultTableModel model = (DefaultTableModel) TblFurgoneta.getModel();
+        model.getDataVector().removeAllElements();
+        
+        for (AbstractVehiculo furgoneta:gestionVehiculo.obtenerVehiculos("Furgoneta")) {
+            model.addRow(furgoneta.obtenerArregloObjeto());
+        }
+        TblFurgoneta.setModel(model);
+
+    }
+
+    
+    
+    
+    
     private void MnuFurgonetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuFurgonetaActionPerformed
         // TODO add your handling code here:
+      pintarFurgonetas();
+        JifFurgoneta.repaint();
+        JifFurgoneta.show();
+        
+         if (JifFurgoneta.isIcon()) {
+            try {
+                JifFurgoneta.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(MdiVehiculos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_MnuFurgonetaActionPerformed
+
+     private void pintarMotos() {
+        DefaultTableModel model = (DefaultTableModel) TblMoto.getModel();
+        model.getDataVector().removeAllElements();
+        
+        for (AbstractVehiculo moto:gestionVehiculo.obtenerVehiculos("Moto")) {
+            model.addRow(moto.obtenerArregloObjeto());
+        }
+        TblMoto.setModel(model);
+
+    }
 
     private void MnuMotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuMotoActionPerformed
         // TODO add your handling code here:
-        
+         pintarMotos();
+        JifMoto.repaint();
         JifMoto.show();
         
          if (JifMoto.isIcon()) {
@@ -493,6 +681,8 @@ private Usuario usuarioAutenticado;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnIngresar;
     private javax.swing.JInternalFrame JflmLogin;
+    private javax.swing.JInternalFrame JifCoche;
+    private javax.swing.JInternalFrame JifFurgoneta;
     private javax.swing.JInternalFrame JifMoto;
     private javax.swing.JInternalFrame JifUsuarios;
     private javax.swing.JMenu MmuLogin;
@@ -500,10 +690,15 @@ private Usuario usuarioAutenticado;
     private javax.swing.JMenuItem MnuCoche;
     private javax.swing.JMenuItem MnuCrearusuario;
     private javax.swing.JMenuItem MnuFurgoneta;
+    private javax.swing.JMenuItem MnuInformeAlquilados;
+    private javax.swing.JMenuItem MnuInformeVehiculos;
+    private javax.swing.JMenu MnuInformes;
     private javax.swing.JMenuItem MnuMoto;
     private javax.swing.JMenuItem MnuSalirr;
     private javax.swing.JMenuItem MnuUsuarios;
     private javax.swing.JMenu MnuVehiculos;
+    private javax.swing.JTable TblCoche;
+    private javax.swing.JTable TblFurgoneta;
     private javax.swing.JTable TblMoto;
     private javax.swing.JTable TblUsuarios;
     private javax.swing.JPasswordField TxtContraseña;
@@ -514,6 +709,8 @@ private Usuario usuarioAutenticado;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
 

@@ -68,5 +68,11 @@ public class Furgoneta  extends AbstractVehiculo implements Serializable{
     public double calcularAlquiler(int km) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public Object[] obtenerArregloObjeto() {
+         Object[] data={ getMatricula(),getKm(),isEstado(),getValorAlquiler(),getCapacidad()};
+        return data;
+    }
     
 }

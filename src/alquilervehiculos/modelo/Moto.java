@@ -58,6 +58,11 @@ public class Moto extends AbstractVehiculo implements Serializable{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+     public Object[] obtenerArregloObjeto(){
+        Object[] data={ getMatricula(),getKm(),isEstado(),getValorAlquiler(),isCasco()};
+        return data;
+    }
     
+
     
 }
