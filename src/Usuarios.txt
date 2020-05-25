@@ -1,3 +1,3 @@
-sebastian montes,1002542616,montess@umanizales.edu.co,1002542616,1
+sebastian montes,1002542616,montes@gmail.com,12345,1
 daniela prieto,1002562745,danielaprieto@umanizales.edu.co,1002562745,2
 carlos loaiza,1202558796,carlosloaiza@umanizales.edu.co,1202558796,3

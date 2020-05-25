@@ -23,20 +23,21 @@ import javax.swing.table.DefaultTableModel;
  * @author junor
  */
 public class MdiVehiculos extends javax.swing.JFrame {
-private GestionUsuario gestionUsuario;
-private Usuario usuarioAutenticado;
-private GestionVehiculo gestionVehiculo;
+
+    private GestionUsuario gestionUsuario;
+    private Usuario usuarioAutenticado;
+    private GestionVehiculo gestionVehiculo;
+
     /**
      * Creates new form MdiVehiculos
      */
     public MdiVehiculos() {
         initComponents();
-       JifUsuarios.hide();
-       JifMoto.hide();
+//        JifUsuarios.hide();
+//        JifMoto.hide();
     }
 
-    
-     private void iniciarMenus(boolean estado) {
+    private void iniciarMenus(boolean estado) {
         MnuVehiculos.setVisible(estado);
         MnuCoche.setVisible(estado);
         MnuFurgoneta.setVisible(estado);
@@ -51,6 +52,16 @@ private GestionVehiculo gestionVehiculo;
             ///administrador
             case "1":
                 iniciarMenus(true);
+                MnuVehiculos.setVisible(true);
+                MnuCoche.setVisible(true);
+                MnuFurgoneta.setVisible(true);
+                MnuMoto.setVisible(true);
+                MnuCrearusuario.setVisible(true);
+                MnuInformeVehiculos.setVisible(true);
+                MnuInformeAlquilados.setVisible(true);
+                MnuInformes.setVisible(true);
+                MnuUsuarios.setVisible(true);
+
                 break;
             ///alquiler
             case "2":
@@ -72,6 +83,7 @@ private GestionVehiculo gestionVehiculo;
 
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -233,10 +245,7 @@ private GestionVehiculo gestionVehiculo;
 
         TblMoto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Matricula", "Km", "Estado", "Valor alquiler", "Casco"
@@ -356,14 +365,14 @@ private GestionVehiculo gestionVehiculo;
             .addGroup(JifFurgonetaLayout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         JifFurgonetaLayout.setVerticalGroup(
             JifFurgonetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JifFurgonetaLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         desktopPane.add(JifFurgoneta);
@@ -463,7 +472,7 @@ private GestionVehiculo gestionVehiculo;
     }// </editor-fold>//GEN-END:initComponents
 
     private void MnuCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuCerrarSesionActionPerformed
-         MmuLogin.setEnabled(false);
+        MmuLogin.setEnabled(false);
         TxtCorreo.setText("");
         TxtContraseña.setText("");
         usuarioAutenticado = null;
@@ -473,21 +482,20 @@ private GestionVehiculo gestionVehiculo;
 
     }//GEN-LAST:event_MnuCerrarSesionActionPerformed
 
-     private void pintarUsuarios() {
+    private void pintarUsuarios() {
         DefaultTableModel model = (DefaultTableModel) TblUsuarios.getModel();
         model.getDataVector().removeAllElements();
-        for (Usuario usuario: gestionUsuario.getUsuarios()) {
+        for (Usuario usuario : gestionUsuario.getUsuarios()) {
             model.addRow(usuario.obtenerArregloObjeto());
         }
         TblUsuarios.setModel(model);
 
     }
 
-    
-    
+
     private void MnuUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuUsuariosActionPerformed
         // TODO add your handling code here:
-         gestionUsuario.llenarUsuarios();
+        gestionUsuario.llenarUsuarios();
         pintarUsuarios();
         JifUsuarios.repaint();
         JifUsuarios.show();
@@ -498,66 +506,61 @@ private GestionVehiculo gestionVehiculo;
                 Logger.getLogger(MdiVehiculos.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-        
+
+
     }//GEN-LAST:event_MnuUsuariosActionPerformed
 
-    
-     private void pintarCoches() {
+    private void pintarCoches() {
         DefaultTableModel model = (DefaultTableModel) TblCoche.getModel();
         model.getDataVector().removeAllElements();
-        
-        for (AbstractVehiculo coche:gestionVehiculo.obtenerVehiculos("Coche")) {
+
+        for (AbstractVehiculo coche : gestionVehiculo.obtenerVehiculos("Coche")) {
             model.addRow(coche.obtenerArregloObjeto());
         }
         TblCoche.setModel(model);
 
     }
 
-    
-    
-    
+
     private void MnuCocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuCocheActionPerformed
         // TODO add your handling code here:
-         pintarCoches();
+
+        gestionVehiculo.llenarVehiculos();
+        pintarCoches();
         JifCoche.repaint();
         JifCoche.show();
-        
-         if (JifCoche.isIcon()) {
+
+        if (JifCoche.isIcon()) {
             try {
                 JifCoche.setMaximum(true);
             } catch (PropertyVetoException ex) {
                 Logger.getLogger(MdiVehiculos.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-       
+
+
     }//GEN-LAST:event_MnuCocheActionPerformed
 
-    
-    
-     private void pintarFurgonetas() {
+    private void pintarFurgonetas() {
         DefaultTableModel model = (DefaultTableModel) TblFurgoneta.getModel();
         model.getDataVector().removeAllElements();
-        
-        for (AbstractVehiculo furgoneta:gestionVehiculo.obtenerVehiculos("Furgoneta")) {
+
+        for (AbstractVehiculo furgoneta : gestionVehiculo.obtenerVehiculos("Furgoneta")) {
             model.addRow(furgoneta.obtenerArregloObjeto());
         }
         TblFurgoneta.setModel(model);
 
     }
 
-    
-    
-    
-    
+
     private void MnuFurgonetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuFurgonetaActionPerformed
         // TODO add your handling code here:
-      pintarFurgonetas();
+        gestionVehiculo.llenarVehiculos();
+        pintarFurgonetas();
         JifFurgoneta.repaint();
         JifFurgoneta.show();
-        
-         if (JifFurgoneta.isIcon()) {
+
+        if (JifFurgoneta.isIcon()) {
             try {
                 JifFurgoneta.setMaximum(true);
             } catch (PropertyVetoException ex) {
@@ -566,11 +569,11 @@ private GestionVehiculo gestionVehiculo;
         }
     }//GEN-LAST:event_MnuFurgonetaActionPerformed
 
-     private void pintarMotos() {
+    private void pintarMotos() {
         DefaultTableModel model = (DefaultTableModel) TblMoto.getModel();
         model.getDataVector().removeAllElements();
-        
-        for (AbstractVehiculo moto:gestionVehiculo.obtenerVehiculos("Moto")) {
+
+        for (AbstractVehiculo moto : gestionVehiculo.obtenerVehiculos("Moto")) {
             model.addRow(moto.obtenerArregloObjeto());
         }
         TblMoto.setModel(model);
@@ -579,11 +582,14 @@ private GestionVehiculo gestionVehiculo;
 
     private void MnuMotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuMotoActionPerformed
         // TODO add your handling code here:
-         pintarMotos();
+
+        gestionVehiculo.llenarVehiculos();
+
+        pintarMotos();
         JifMoto.repaint();
         JifMoto.show();
-        
-         if (JifMoto.isIcon()) {
+
+        if (JifMoto.isIcon()) {
             try {
                 JifMoto.setMaximum(true);
             } catch (PropertyVetoException ex) {
@@ -594,14 +600,14 @@ private GestionVehiculo gestionVehiculo;
 
     private void BtnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnIngresarActionPerformed
         // TODO add your handling code here:
-          if(TxtCorreo.getText()==null || TxtCorreo.getText().compareTo("")==0){
-            JOptionPane.showMessageDialog(this,  
-                    "Debe diligenciar el correo","Datos Faltantes",2);
-        }else if(TxtContraseña.getPassword().length == 0){
-            JOptionPane.showMessageDialog(this,  
-                    "Debe diligenciar la contraseña","Datos Faltantes",2);
-        } else{
-              gestionUsuario = new GestionUsuario();
+        if (TxtCorreo.getText() == null || TxtCorreo.getText().compareTo("") == 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Debe diligenciar el correo", "Datos Faltantes", 2);
+        } else if (TxtContraseña.getPassword().length == 0) {
+            JOptionPane.showMessageDialog(this,
+                    "Debe diligenciar la contraseña", "Datos Faltantes", 2);
+        } else {
+            gestionUsuario = new GestionUsuario();
 
             //Significa que diligencio correo y contraseña
             Pattern pattern = Pattern.compile("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
@@ -629,8 +635,9 @@ private GestionVehiculo gestionVehiculo;
             }
 
         }
-    }             
-           /**
+    }
+
+    /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -665,18 +672,14 @@ private GestionVehiculo gestionVehiculo;
         });
     }
 
-    
-    
-
-    
-     {
+    {
     }//GEN-LAST:event_BtnIngresarActionPerformed
 
     private void MnuSalirrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuSalirrActionPerformed
         // TODO add your handling code here:
-         System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_MnuSalirrActionPerformed
-                            
+
 ////
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnIngresar;
@@ -714,5 +717,4 @@ private GestionVehiculo gestionVehiculo;
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
 
-     } 
-
+}

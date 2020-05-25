@@ -76,4 +76,5 @@ abstract public class AbstractVehiculo {
     }
      
         public abstract Object[] obtenerArregloObjeto();
+        
 }

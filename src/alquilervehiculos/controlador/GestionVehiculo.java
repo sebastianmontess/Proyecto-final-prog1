@@ -10,6 +10,7 @@ import alquilervehiculos.modelo.Coche;
 import alquilervehiculos.modelo.Furgoneta;
 import alquilervehiculos.modelo.Moto;
 import alquilervehiculos.utilidades.LeerArchivoPlano;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,8 @@ import java.util.List;
  *
  * @author junor
  */
-public class GestionVehiculo {
+public class GestionVehiculo  implements Serializable{
+    
     private List<AbstractVehiculo> vehiculos;
     
     
@@ -30,13 +32,18 @@ public class GestionVehiculo {
     }
     
     public void llenarVehiculos() {
+        
         vehiculos = new ArrayList<>();
 
-        vehiculos = LeerArchivoPlano.cargarMotos();
-
+        vehiculos = LeerArchivoPlano.cargarVehiculos();
+                
         if (vehiculos == null || vehiculos.isEmpty()) {
-            vehiculos = LeerArchivoPlano.cargarMotos();
+            vehiculos = LeerArchivoPlano.cargarVehiculos();
         }
+    }
+
+    public GestionVehiculo(List<AbstractVehiculo> vehiculos) {
+        this.vehiculos = vehiculos;
     }
     
     
@@ -48,6 +55,8 @@ public class GestionVehiculo {
     public void setVehiculos(List<AbstractVehiculo> vehiculos) {
         this.vehiculos = vehiculos;
     }
+    
+    
       
       
        public List<AbstractVehiculo> obtenerVehiculos(String tipo) {
@@ -77,11 +86,11 @@ public class GestionVehiculo {
                     }
                     break;
 
-                case "Vehiculos":
-                    if (vehiculo instanceof AbstractVehiculo) {
-                        listaTemporal.add(vehiculo);
-                    }
-                    break;
+//                case "Vehiculos":
+//                    if (vehiculo instanceof AbstractVehiculo) {
+//                        listaTemporal.add(vehiculo);
+//                    }
+//                    break;
 
             }
 

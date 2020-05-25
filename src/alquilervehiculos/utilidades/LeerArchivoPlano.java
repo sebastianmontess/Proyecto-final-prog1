@@ -1,5 +1,3 @@
-
- 
 package alquilervehiculos.utilidades;
 
 import alquilervehiculos.modelo.AbstractVehiculo;
@@ -15,10 +13,10 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class LeerArchivoPlano {
+
     public static List<Usuario> cargarUsuarios(TipoUsuario[] tipos) {
-        List<Usuario> listado= new ArrayList<>();
+        List<Usuario> listado = new ArrayList<>();
         File archivo = null;
         FileReader fr = null;
         BufferedReader br = null;
@@ -28,21 +26,21 @@ public class LeerArchivoPlano {
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
             // Lectura del fichero
-            String linea;            
+            String linea;
 //            br.readLine();
             while ((linea = br.readLine()) != null) {
-               
-               String[] datos= linea.split(",");
-               
-               Usuario usuario= new Usuario(
-                datos[0],datos[1],datos[2],datos[3],tipos[Integer.parseInt(datos[4])-1]);
-                                    
-               listado.add(usuario);
-                       
+
+                String[] datos = linea.split(",");
+
+                Usuario usuario = new Usuario(
+                        datos[0], datos[1], datos[2], datos[3], tipos[Integer.parseInt(datos[4]) - 1]);
+
+                listado.add(usuario);
+
             }
         } catch (Exception e) {
             System.out.println("El archivo no existe = " + e.getMessage());
-        } finally {            
+        } finally {
             try {
                 if (null != fr) {
                     fr.close();
@@ -56,31 +54,39 @@ public class LeerArchivoPlano {
     }
 
     //////cargar vehiculos///
-    public static  List<AbstractVehiculo> cargarMotos (List<AbstractVehiculo> vehiculos){
-        List<AbstractVehiculo> listado= new ArrayList<>();
+    
+    
+    public static List<AbstractVehiculo> cargarVehiculos() {
+
+        List<AbstractVehiculo> listado = new ArrayList<>();
+
         File archivo = null;
         FileReader fr = null;
         BufferedReader br = null;
-         try {
-            archivo = new File("src/Moto.txt");
+        try {
+            archivo = new File("src/motos.txt");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
-        // Lectura del fichero
-            String linea;            
-            br.readLine();
+            // Lectura del fichero
+            String linea;
+//            br.readLine();
             while ((linea = br.readLine()) != null) {
-               
-               String[] datos= linea.split(",");
-               
-               Moto moto= new Moto(
-                       datos[0],Integer.parseInt(datos[1]),Boolean.parseBoolean(datos[2]),Double.parseDouble(datos[3]),Boolean.parseBoolean(datos[4]));
-                                     
-               listado.add(moto);
-                       
+
+                String[] datos = linea.split(",");
+
+                Moto moto = new Moto(
+                        datos[0],
+                        Integer.parseInt(datos[1]),
+                        Boolean.parseBoolean(datos[2]),
+                        Double.parseDouble(datos[3]),
+                        Boolean.parseBoolean(datos[4]));
+
+                listado.add(moto);
+
             }
         } catch (Exception e) {
             System.out.println("El archivo no existe = " + e.getMessage());
-        } finally {            
+        } finally {
             try {
                 if (null != fr) {
                     fr.close();
@@ -90,27 +96,26 @@ public class LeerArchivoPlano {
             }
         }
 
-       
-         try {
+        try {
             archivo = new File("src/Coche.txt");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
-        // Lectura del fichero
-            String linea;            
-            br.readLine();
+            // Lectura del fichero
+            String linea;
+//            br.readLine();
             while ((linea = br.readLine()) != null) {
-               
-               String[] datos= linea.split(",");
-               
-               Coche coche= new Coche(
-              datos[0],Integer.parseInt(datos[1]),Boolean.parseBoolean(datos[2]),Double.parseDouble(datos[3]),Boolean.parseBoolean(datos[4]));
-                                     
-               listado.add(coche);
-                       
+
+                String[] datos = linea.split(",");
+
+                Coche coche = new Coche(
+                        datos[0], Integer.parseInt(datos[1]), Boolean.parseBoolean(datos[2]), Double.parseDouble(datos[3]), Boolean.parseBoolean(datos[4]));
+
+                listado.add(coche);
+
             }
         } catch (Exception e) {
             System.out.println("El archivo no existe = " + e.getMessage());
-        } finally {            
+        } finally {
             try {
                 if (null != fr) {
                     fr.close();
@@ -119,27 +124,27 @@ public class LeerArchivoPlano {
                 e2.printStackTrace();
             }
         }
-     
-         try {
+
+        try {
             archivo = new File("src/Furgoneta.txt");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
-        // Lectura del fichero
-            String linea;            
-            br.readLine();
+            // Lectura del fichero
+            String linea;
+//            br.readLine();
             while ((linea = br.readLine()) != null) {
-               
-               String[] datos= linea.split(",");
-               
-               Furgoneta furgoneta= new Furgoneta(
-              datos[0],Integer.parseInt(datos[1]),Boolean.parseBoolean(datos[2]),Double.parseDouble(datos[3]),Short.parseShort(datos[4]));
-                                     
-               listado.add(furgoneta);
-                       
+
+                String[] datos = linea.split(",");
+
+                Furgoneta furgoneta = new Furgoneta(
+                        datos[0], Integer.parseInt(datos[1]), Boolean.parseBoolean(datos[2]), Double.parseDouble(datos[3]), Short.parseShort(datos[4]));
+
+                listado.add(furgoneta);
+
             }
         } catch (Exception e) {
             System.out.println("El archivo no existe = " + e.getMessage());
-        } finally {            
+        } finally {
             try {
                 if (null != fr) {
                     fr.close();
@@ -148,28 +153,26 @@ public class LeerArchivoPlano {
                 e2.printStackTrace();
             }
         }
-         return listado;
+        return listado;
     }
-    
-    
+
     ///// cargar clientes////
-    
     public static List<Cliente> cargarClientes(TipoUsuario[] tipos) {
-        List<Cliente> listado = new ArrayList<>(); 
-        File archivo = null; 
-        FileReader fr = null; 
-        BufferedReader br = null; 
+        List<Cliente> listado = new ArrayList<>();
+        File archivo = null;
+        FileReader fr = null;
+        BufferedReader br = null;
 
         try {
-            archivo = new File("src/clientes.txt"); 
+            archivo = new File("src/clientes.txt");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
             // Lectura del fichero
             String linea;
 //            
-            while ((linea = br.readLine()) != null) { 
+            while ((linea = br.readLine()) != null) {
 
-                String[] datos = linea.split(","); 
+                String[] datos = linea.split(",");
 
                 Cliente cliente = new Cliente(datos[0], datos[1], tipos[Integer.parseInt(datos[2]) - 1]);
 
@@ -189,18 +192,7 @@ public class LeerArchivoPlano {
         }
 
         return listado;
-        
+
     }
 
-    public static List<AbstractVehiculo> cargarCoches(List<AbstractVehiculo> vehiculos) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public static List<AbstractVehiculo> cargarMotos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
-    
-    
 }
