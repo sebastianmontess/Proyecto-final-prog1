@@ -33,6 +33,8 @@ public class MdiVehiculos extends javax.swing.JFrame {
      */
     public MdiVehiculos() {
         initComponents();
+        gestionVehiculo = new GestionVehiculo();
+        
 //        JifUsuarios.hide();
 //        JifMoto.hide();
     }
