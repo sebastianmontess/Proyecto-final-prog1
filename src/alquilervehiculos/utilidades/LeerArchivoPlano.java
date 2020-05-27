@@ -164,7 +164,7 @@ public class LeerArchivoPlano {
         BufferedReader br = null;
 
         try {
-            archivo = new File("src/clientes.txt");
+            archivo = new File("src/Clientes.txt");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
             // Lectura del fichero

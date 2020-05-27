@@ -5,7 +5,9 @@
  */
 package alquilervehiculos.controlador;
 
+import alquilervehiculos.excepciones.VehiculoExcepcion;
 import alquilervehiculos.modelo.AbstractVehiculo;
+import alquilervehiculos.modelo.AlquilaVehiculo;
 import alquilervehiculos.modelo.Coche;
 import alquilervehiculos.modelo.Furgoneta;
 import alquilervehiculos.modelo.Moto;
@@ -21,7 +23,7 @@ import java.util.List;
 public class GestionVehiculo  implements Serializable{
     
     private List<AbstractVehiculo> vehiculos;
-    
+      private List<AlquilaVehiculo> vehiculosAlquilados  = new ArrayList<>();
     
       
     public GestionVehiculo() {
@@ -40,6 +42,14 @@ public class GestionVehiculo  implements Serializable{
         if (vehiculos == null || vehiculos.isEmpty()) {
             vehiculos = LeerArchivoPlano.cargarVehiculos();
         }
+    }
+
+    public List<AlquilaVehiculo> getVehiculosAlquilados() {
+        return vehiculosAlquilados;
+    }
+
+    public void setVehiculosAlquilados(List<AlquilaVehiculo> vehiculosAlquilados) {
+        this.vehiculosAlquilados = vehiculosAlquilados;
     }
 
     public GestionVehiculo(List<AbstractVehiculo> vehiculos) {
@@ -98,6 +108,29 @@ public class GestionVehiculo  implements Serializable{
         return listaTemporal;
 
     }
+ public AbstractVehiculo encontrarVehiculo(String matricula)
+    {
+        for (AbstractVehiculo vehiculo : getVehiculos())
+        {
+            AbstractVehiculo veh;
+            if (matricula.equals(vehiculo.getMatricula()))
+            {
+                veh = vehiculo;
+                return veh;
+            }
 
+        }
+        return null;
+    }
    
+  public void adicionarVehiculoAlquilado(AlquilaVehiculo alquilado) throws VehiculoExcepcion
+    {
+        vehiculosAlquilados.add(alquilado);
+    }
+ 
+ 
+ 
+ 
+ 
+ 
 }

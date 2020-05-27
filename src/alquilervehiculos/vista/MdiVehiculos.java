@@ -11,6 +11,7 @@ import alquilervehiculos.controlador.GestionVehiculo;
 import alquilervehiculos.excepciones.ClienteExcepcion;
 import alquilervehiculos.excepciones.VehiculoExcepcion;
 import alquilervehiculos.modelo.AbstractVehiculo;
+import alquilervehiculos.modelo.AlquilaVehiculo;
 import alquilervehiculos.modelo.Cliente;
 import alquilervehiculos.modelo.Moto;
 import alquilervehiculos.modelo.TipoUsuario;
@@ -20,6 +21,8 @@ import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -37,7 +40,7 @@ public class MdiVehiculos extends javax.swing.JFrame {
     private Usuario usuarioAutenticado;
     private GestionVehiculo gestionVehiculo;
     private int tipoUsuario;
-    private GestionUsuario controlUsuario;
+    private GestionUsuario gestionUsuario1;
      private LeerArchivoPlano leer;
 
     /**
@@ -46,7 +49,7 @@ public class MdiVehiculos extends javax.swing.JFrame {
     public MdiVehiculos() {
         initComponents();
         gestionVehiculo = new GestionVehiculo();
-        
+        gestionUsuario1 = new GestionUsuario();
 //        JifUsuarios.hide();
 //        JifMoto.hide();
     }
@@ -138,6 +141,15 @@ public class MdiVehiculos extends javax.swing.JFrame {
         JifAlquilarVehiculos = new javax.swing.JInternalFrame();
         jScrollPane6 = new javax.swing.JScrollPane();
         TblCliente = new javax.swing.JTable();
+        jLabel8 = new javax.swing.JLabel();
+        TxtMatriculaAlquilar = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        TxtNombreClienteAlquiler = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jDateEntregaAlquiler = new com.toedter.calendar.JDateChooser();
+        jDateDevolucionAlquiler = new com.toedter.calendar.JDateChooser();
+        BtnAlquilar = new javax.swing.JButton();
         JifCrearUsuario = new javax.swing.JInternalFrame();
         jLabel3 = new javax.swing.JLabel();
         TxtNombreCrearUsuario = new javax.swing.JTextField();
@@ -150,6 +162,9 @@ public class MdiVehiculos extends javax.swing.JFrame {
         BtnCrearUsu = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         CbxTipoUsuario = new javax.swing.JComboBox<>();
+        JifInformeAlquilados = new javax.swing.JInternalFrame();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        TblVehiculosAlquilados = new javax.swing.JTable();
         menuBar = new javax.swing.JMenuBar();
         MmuLogin = new javax.swing.JMenu();
         MnuVehiculos = new javax.swing.JMenu();
@@ -332,11 +347,11 @@ public class MdiVehiculos extends javax.swing.JFrame {
                         .addComponent(BtnAlquilarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(BtnDevolverMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(327, Short.MAX_VALUE))
+                .addContainerGap(286, Short.MAX_VALUE))
         );
 
         desktopPane.add(JifMoto);
-        JifMoto.setBounds(210, 10, 770, 562);
+        JifMoto.setBounds(210, 10, 770, 521);
 
         JifCoche.setClosable(true);
         JifCoche.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -401,13 +416,14 @@ public class MdiVehiculos extends javax.swing.JFrame {
                         .addComponent(BtnAlquilarCoche, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(BtnDevolverCoche, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         desktopPane.add(JifCoche);
         JifCoche.setBounds(460, 70, 510, 340);
 
         JifFurgoneta.setClosable(true);
+        JifFurgoneta.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         JifFurgoneta.setIconifiable(true);
         JifFurgoneta.setMaximizable(true);
         JifFurgoneta.setResizable(true);
@@ -469,12 +485,17 @@ public class MdiVehiculos extends javax.swing.JFrame {
                     .addGroup(JifFurgonetaLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         desktopPane.add(JifFurgoneta);
         JifFurgoneta.setBounds(350, 110, 490, 310);
 
+        JifAlquilarVehiculos.setClosable(true);
+        JifAlquilarVehiculos.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        JifAlquilarVehiculos.setIconifiable(true);
+        JifAlquilarVehiculos.setMaximizable(true);
+        JifAlquilarVehiculos.setResizable(true);
         JifAlquilarVehiculos.setTitle("Alquilar Vehiculos");
         JifAlquilarVehiculos.setVisible(false);
 
@@ -486,7 +507,7 @@ public class MdiVehiculos extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Nombre", "Identificacion", "Tipo de Usuario"
+                "Cedula", "Identificacion", "Tipo de Usuario"
             }
         ) {
             Class[] types = new Class [] {
@@ -499,26 +520,89 @@ public class MdiVehiculos extends javax.swing.JFrame {
         });
         jScrollPane6.setViewportView(TblCliente);
 
+        jLabel8.setText("Matricula Del Vehiculo:");
+
+        jLabel9.setText("Nombre Del Cliente:");
+
+        jLabel10.setText("Fecha De Entrega:");
+
+        jLabel11.setText("Fecha Devolucion:");
+
+        BtnAlquilar.setText("Alquilar");
+        BtnAlquilar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAlquilarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout JifAlquilarVehiculosLayout = new javax.swing.GroupLayout(JifAlquilarVehiculos.getContentPane());
         JifAlquilarVehiculos.getContentPane().setLayout(JifAlquilarVehiculosLayout);
         JifAlquilarVehiculosLayout.setHorizontalGroup(
             JifAlquilarVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JifAlquilarVehiculosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addGroup(JifAlquilarVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JifAlquilarVehiculosLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(JifAlquilarVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(JifAlquilarVehiculosLayout.createSequentialGroup()
+                                .addGroup(JifAlquilarVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(JifAlquilarVehiculosLayout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(TxtNombreClienteAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(JifAlquilarVehiculosLayout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(TxtMatriculaAlquilar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(35, 35, 35)
+                                .addGroup(JifAlquilarVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(JifAlquilarVehiculosLayout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jDateEntregaAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(JifAlquilarVehiculosLayout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jDateDevolucionAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(JifAlquilarVehiculosLayout.createSequentialGroup()
+                        .addGap(216, 216, 216)
+                        .addComponent(BtnAlquilar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         JifAlquilarVehiculosLayout.setVerticalGroup(
             JifAlquilarVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JifAlquilarVehiculosLayout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(235, Short.MAX_VALUE))
+                .addGroup(JifAlquilarVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(JifAlquilarVehiculosLayout.createSequentialGroup()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23)
+                        .addGroup(JifAlquilarVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(TxtMatriculaAlquilar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10)))
+                    .addComponent(jDateEntregaAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(JifAlquilarVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JifAlquilarVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel9)
+                        .addComponent(TxtNombreClienteAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel11))
+                    .addComponent(jDateDevolucionAlquiler, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(BtnAlquilar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
         );
 
         desktopPane.add(JifAlquilarVehiculos);
         JifAlquilarVehiculos.setBounds(270, 90, 530, 330);
 
+        JifCrearUsuario.setClosable(true);
+        JifCrearUsuario.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        JifCrearUsuario.setIconifiable(true);
+        JifCrearUsuario.setMaximizable(true);
+        JifCrearUsuario.setResizable(true);
         JifCrearUsuario.setTitle("Crear Usuario");
         JifCrearUsuario.setVisible(false);
 
@@ -602,9 +686,9 @@ public class MdiVehiculos extends javax.swing.JFrame {
                             .addComponent(CbxTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TxtContraseñaCrearUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(JifCrearUsuarioLayout.createSequentialGroup()
-                        .addGap(99, 99, 99)
+                        .addGap(125, 125, 125)
                         .addComponent(BtnCrearUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
         JifCrearUsuarioLayout.setVerticalGroup(
             JifCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -631,11 +715,52 @@ public class MdiVehiculos extends javax.swing.JFrame {
                     .addComponent(CbxTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(47, 47, 47)
                 .addComponent(BtnCrearUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
 
         desktopPane.add(JifCrearUsuario);
-        JifCrearUsuario.setBounds(470, 140, 358, 375);
+        JifCrearUsuario.setBounds(470, 140, 437, 427);
+
+        JifInformeAlquilados.setClosable(true);
+        JifInformeAlquilados.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        JifInformeAlquilados.setIconifiable(true);
+        JifInformeAlquilados.setMaximizable(true);
+        JifInformeAlquilados.setResizable(true);
+        JifInformeAlquilados.setTitle("Vehiculos Alquilados");
+        JifInformeAlquilados.setVisible(false);
+
+        TblVehiculosAlquilados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Cliente", "Vehiculo", "Fecha de entrega", "Fecha de devolucion"
+            }
+        ));
+        jScrollPane7.setViewportView(TblVehiculosAlquilados);
+
+        javax.swing.GroupLayout JifInformeAlquiladosLayout = new javax.swing.GroupLayout(JifInformeAlquilados.getContentPane());
+        JifInformeAlquilados.getContentPane().setLayout(JifInformeAlquiladosLayout);
+        JifInformeAlquiladosLayout.setHorizontalGroup(
+            JifInformeAlquiladosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JifInformeAlquiladosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 572, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        JifInformeAlquiladosLayout.setVerticalGroup(
+            JifInformeAlquiladosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JifInformeAlquiladosLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(74, Short.MAX_VALUE))
+        );
+
+        desktopPane.add(JifInformeAlquilados);
+        JifInformeAlquilados.setBounds(330, 100, 470, 290);
 
         MmuLogin.setMnemonic('f');
         MmuLogin.setText("Menu");
@@ -672,9 +797,19 @@ public class MdiVehiculos extends javax.swing.JFrame {
         MnuInformes.setText("Informes");
 
         MnuInformeVehiculos.setText("Informe vehiculos");
+        MnuInformeVehiculos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnuInformeVehiculosActionPerformed(evt);
+            }
+        });
         MnuInformes.add(MnuInformeVehiculos);
 
         MnuInformeAlquilados.setText("Alquilados");
+        MnuInformeAlquilados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnuInformeAlquiladosActionPerformed(evt);
+            }
+        });
         MnuInformes.add(MnuInformeAlquilados);
 
         MmuLogin.add(MnuInformes);
@@ -755,39 +890,38 @@ public class MdiVehiculos extends javax.swing.JFrame {
         TblUsuarios.setModel(model);
 
     }
- private void llenarTablaUsuario()
-    {
-        DefaultTableModel model = (DefaultTableModel) TblUsuarios.getModel();
-        model.getDataVector().removeAllElements();
-        for (Usuario usuario : controlUsuario.getUsuarios())
-        {
-            model.addRow(usuario.obtenerArregloObjeto());
 
-        }
-        for (Cliente cliente : controlUsuario.getClientes())
-        {
-            model.addRow(cliente.obtenerArregloObjeto());
-        }
-        TblUsuarios.setModel(model);
-
-    }
-  private void llenarTablaCliente()
+  private void pintarCliente()
     {
         DefaultTableModel model = (DefaultTableModel) TblCliente.getModel();
         model.getDataVector().removeAllElements();
-        for (Cliente cliente : controlUsuario.getClientes())
+        for (Cliente cliente : gestionUsuario1.getClientes())
         {
             model.addRow(cliente.obtenerArregloObjeto());
         }
         TblCliente.setModel(model);
 
     }
+     private void pintarVehiculosAlquilados()
+    {
+        DefaultTableModel model = (DefaultTableModel) TblVehiculosAlquilados.getModel();
+        model.getDataVector().removeAllElements();
+        for (AlquilaVehiculo vehiculo : gestionVehiculo.getVehiculosAlquilados())
+        {
+            model.addRow(vehiculo.obtenerArregloVehiculoAlquilado());
 
+        }
+        TblVehiculosAlquilados.setModel(model);
+
+    }
 
     private void MnuUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuUsuariosActionPerformed
         // TODO add your handling code here:
-        llenarTablaUsuario();
-        llenarTablaCliente();
+         gestionUsuario.llenarUsuarios();
+         pintarUsuarios();
+           
+//        llenarTablaUsuario();
+//        llenarTablaCliente();
         JifUsuarios.repaint();
         JifUsuarios.show();
         if (JifUsuarios.isIcon()) {
@@ -990,7 +1124,7 @@ public class MdiVehiculos extends javax.swing.JFrame {
     private void BtnCrearUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCrearUsuActionPerformed
         // TODO add your handling code here:
         
-         controlUsuario.getTipoUsuarios();
+         gestionUsuario1.getTipoUsuarios();
         TipoUsuario[] tipos;
 
             if (CbxTipoUsuario.getSelectedItem().toString().equals("Administrador") || CbxTipoUsuario.getSelectedItem().toString().equals("Alquiler"))
@@ -1016,14 +1150,14 @@ public class MdiVehiculos extends javax.swing.JFrame {
 
                     String codigo = CbxTipoUsuario.getSelectedItem().toString().toLowerCase();
                     byte numTipo = leer.convertirTipoUsuarios(codigo);
-                    tipos = controlUsuario.getTipoUsuarios();
+                    tipos = gestionUsuario1.getTipoUsuarios();
                     Usuario usuario = new Usuario(TxtIdentifiacionCrearUsuario.getText(), TxtNombreCrearUsuario.getText(), TxtCorreo.getText(), TxtContraseñaCrearUsu.getText(), tipos[numTipo]);
 
                     try
                     {
-                        controlUsuario.adicionarUsuario(usuario);
-                        llenarTablaUsuario();
-                        llenarTablaCliente();
+                        gestionUsuario1.adicionarUsuario(usuario);
+                        pintarUsuarios();
+                        pintarCliente();
                         TxtNombreCrearUsuario.setText("");
                         TxtIdentifiacionCrearUsuario.setText("");
                         TxtCorreo.setText("");
@@ -1051,9 +1185,9 @@ public class MdiVehiculos extends javax.swing.JFrame {
                 Cliente cliente = new Cliente(TxtNombreCrearUsuario.getText(), TxtIdentifiacionCrearUsuario.getText());
                 try
                 {
-                    controlUsuario.adicionarCliente(cliente);
-                    llenarTablaUsuario();
-                    llenarTablaCliente();
+                    gestionUsuario1.adicionarCliente(cliente);
+                   pintarUsuarios();
+                    pintarCliente();
                     TxtNombreCrearUsuario.setText("");
                     TxtIdentifiacionCrearUsuario.setText("");
                     TxtCorreo.setText("");
@@ -1108,7 +1242,10 @@ public class MdiVehiculos extends javax.swing.JFrame {
 
     private void BtnAlquilarMotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAlquilarMotoActionPerformed
         // TODO add your handling code here:
+        Date fecha = new Date();
+        jDateEntregaAlquiler.setDate(fecha);
         
+        pintarCliente();
         JifAlquilarVehiculos.show();
         if (JifAlquilarVehiculos.isIcon()) {
             try {
@@ -1121,7 +1258,9 @@ public class MdiVehiculos extends javax.swing.JFrame {
 
     private void BtnAlquilarCocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAlquilarCocheActionPerformed
         // TODO add your handling code here:
-        
+         Date fecha = new Date();
+        jDateEntregaAlquiler.setDate(fecha);
+       pintarCliente();
         JifAlquilarVehiculos.show();
         if (JifAlquilarVehiculos.isIcon()) {
             try {
@@ -1134,7 +1273,9 @@ public class MdiVehiculos extends javax.swing.JFrame {
 
     private void BtnAlquilarFurgonetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAlquilarFurgonetaActionPerformed
         // TODO add your handling code here:
-        
+         Date fecha = new Date();
+        jDateEntregaAlquiler.setDate(fecha);
+         pintarCliente();
         JifAlquilarVehiculos.show();
         if (JifAlquilarVehiculos.isIcon()) {
             try {
@@ -1144,17 +1285,119 @@ public class MdiVehiculos extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_BtnAlquilarFurgonetaActionPerformed
-TipoUsuario[] tipoUsuarios = new TipoUsuario[3];
+public Date sumarRestarDiasFecha(Date fecha)
+    {
+        Date a;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fecha); // Configuramos la fecha que se recibe
 
-    private void llenarTiposUsuario() {
+        calendar.add(Calendar.DAY_OF_YEAR, -1);  // numero de días a añadir, o restar en caso de días<0
 
-        tipoUsuarios[0] = new TipoUsuario("1", "Administrador");
-        tipoUsuarios[1] = new TipoUsuario("2", "Alquiler");
-        tipoUsuarios[2] = new TipoUsuario("2", "Cliente");
+        return a = calendar.getTime(); // Devuelve el objeto Date con los nuevos días añadidos
+
     }
+    private void BtnAlquilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAlquilarActionPerformed
+        // TODO add your handling code here:
+     
+        Date hoy = new Date();
+        Date fecha = sumarRestarDiasFecha(hoy);
+
+        if (TxtNombreClienteAlquiler.getText() == null || TxtNombreClienteAlquiler.getText().compareTo("") == 0)
+        {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente");
+        }
+        else if (TxtMatriculaAlquilar.getText() == null || TxtMatriculaAlquilar.getText().compareTo("") == 0)
+        {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un vehículo");
+        }
+        else if (jDateEntregaAlquiler.getDate() == null)
+        {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una fecha de entrega");
+        }
+
+        else if (jDateEntregaAlquiler.getDate().before(fecha))
+        {
+            JOptionPane.showMessageDialog(this, "La fecha de alquiler es anterior a la fecha actual");
+        }
+
+        else if (jDateDevolucionAlquiler.getDate() == null)
+        {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una fecha de devolución");
+        }
+        else if (jDateEntregaAlquiler.getDate().compareTo(jDateDevolucionAlquiler.getDate()) > 0)
+        {
+            JOptionPane.showMessageDialog(this, "La fecha de devolucion es anterior a la fecha de alquiler");
+        }
+        else
+        {
+
+            if (gestionVehiculo.encontrarVehiculo(TxtMatriculaAlquilar.getText()).isEstado() == false)
+            {
+
+                JOptionPane.showMessageDialog(this, "El vehículo de matricula " + TxtMatriculaAlquilar.getText()
+                        + " se encuentra ocupado");
+                TxtMatriculaAlquilar.setText("");
+            }
+            else
+            {
+
+                AlquilaVehiculo alquilado = new AlquilaVehiculo(gestionVehiculo.encontrarVehiculo(TxtMatriculaAlquilar.getText()),
+                        jDateEntregaAlquiler.getDate(), jDateDevolucionAlquiler.getDate(),
+                        gestionUsuario1.encontrarCliente(TxtNombreClienteAlquiler.getText()));
+
+                try
+                {
+
+                    gestionVehiculo.encontrarVehiculo(TxtMatriculaAlquilar.getText()).alquilar();
+                    gestionVehiculo.adicionarVehiculoAlquilado(alquilado);
+                    
+                    pintarVehiculosAlquilados();
+//                    pintarDevolver();
+                    JOptionPane.showMessageDialog(this, "El vehiculo " + TxtMatriculaAlquilar.getText()
+                            + " fue alquilado a " + TxtNombreClienteAlquiler.getText());
+                    TxtMatriculaAlquilar.setText("");
+                    TxtNombreClienteAlquiler.setText("");
+
+                }
+                catch (VehiculoExcepcion ex)
+                {
+                    Logger.getLogger(MdiVehiculos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }
+    }//GEN-LAST:event_BtnAlquilarActionPerformed
+
+    private void MnuInformeAlquiladosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuInformeAlquiladosActionPerformed
+        // TODO add your handling code here:
+        pintarVehiculosAlquilados();
+        JifInformeAlquilados.repaint();
+        JifInformeAlquilados.show();
+
+        if (JifInformeAlquilados.isIcon())
+        {
+            try
+            {
+
+                JifInformeAlquilados.setMaximum(true);
+            }
+            catch (PropertyVetoException ex)
+            {
+                Logger.getLogger(MdiVehiculos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }//GEN-LAST:event_MnuInformeAlquiladosActionPerformed
+
+    private void MnuInformeVehiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuInformeVehiculosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MnuInformeVehiculosActionPerformed
+
+
 
 ////
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnAlquilar;
     private javax.swing.JButton BtnAlquilarCoche;
     private javax.swing.JButton BtnAlquilarFurgoneta;
     private javax.swing.JButton BtnAlquilarMoto;
@@ -1169,6 +1412,7 @@ TipoUsuario[] tipoUsuarios = new TipoUsuario[3];
     private javax.swing.JInternalFrame JifCoche;
     private javax.swing.JInternalFrame JifCrearUsuario;
     private javax.swing.JInternalFrame JifFurgoneta;
+    private javax.swing.JInternalFrame JifInformeAlquilados;
     private javax.swing.JInternalFrame JifMoto;
     private javax.swing.JInternalFrame JifUsuarios;
     private javax.swing.JMenu MmuLogin;
@@ -1188,26 +1432,36 @@ TipoUsuario[] tipoUsuarios = new TipoUsuario[3];
     private javax.swing.JTable TblFurgoneta;
     private javax.swing.JTable TblMoto;
     private javax.swing.JTable TblUsuarios;
+    private javax.swing.JTable TblVehiculosAlquilados;
     private javax.swing.JPasswordField TxtContraseña;
     private javax.swing.JTextField TxtContraseñaCrearUsu;
     private javax.swing.JTextPane TxtCorreo;
     private javax.swing.JTextField TxtCorreoCrearUsu;
     private javax.swing.JTextField TxtIdentifiacionCrearUsuario;
+    private javax.swing.JTextField TxtMatriculaAlquilar;
+    private javax.swing.JTextField TxtNombreClienteAlquiler;
     private javax.swing.JTextField TxtNombreCrearUsuario;
     private javax.swing.JDesktopPane desktopPane;
+    private com.toedter.calendar.JDateChooser jDateDevolucionAlquiler;
+    private com.toedter.calendar.JDateChooser jDateEntregaAlquiler;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
 
