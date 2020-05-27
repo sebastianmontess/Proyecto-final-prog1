@@ -1,6 +1,10 @@
 
 package alquilervehiculos.controlador;
 
+
+
+import alquilervehiculos.excepciones.ClienteExcepcion;
+import alquilervehiculos.excepciones.VehiculoExcepcion;
 import alquilervehiculos.modelo.Cliente;
 import alquilervehiculos.modelo.TipoUsuario;
 import alquilervehiculos.modelo.Usuario;
@@ -17,6 +21,7 @@ public class GestionUsuario {
     public GestionUsuario() {
         llenarTiposUsuario();
         llenarUsuarios();
+        llenarClientes();
     }
     
      private void llenarTiposUsuario()
@@ -59,6 +64,15 @@ public class GestionUsuario {
         return null;
     }
 
+    public List<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public void setClientes(List<Cliente> clientes) {
+        this.clientes = clientes;
+    }
+    
+
     public TipoUsuario[] getTipoUsuarios() {
         return tipoUsuarios;
     }
@@ -74,6 +88,72 @@ public class GestionUsuario {
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
-   
+
+  public void adicionarUsuario(Usuario usuario) throws ClienteExcepcion
+    {
+        if (validarExistenciaUsuario(usuario)){
+
+            throw new ClienteExcepcion("El usuario on identificación: " + usuario.getCedula() + " ya existe");
+        }
+        else
+        {      
+
+        usuarios.add(usuario);
+
+        }
+    }
+
+    private boolean validarExistenciaUsuario(Usuario usuario) {
+       for (Usuario usr : this.usuarios)
+        {
+            if (usr.getCedula().compareTo(usuario.getCedula()) == 0)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+       private boolean validarExistenciaUsuario(Cliente cliente)
+    {
+
+                for (Cliente cli : this.clientes)
+        {
+            if (cli.getCedula().compareTo(cliente.getCedula()) == 0)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+public void adicionarCliente(Cliente cliente) throws VehiculoExcepcion
+    {
+        if (validarExistenciaUsuario(cliente))
+        {
+
+            throw new VehiculoExcepcion("El usuario con identidicación: " + cliente.getCedula() + " ya existe");
+        }
+        else
+        {  
+
+        clientes.add(cliente);
+
+        }
+    }
+        public Cliente encontrarCliente(String id) 
+    {
+              for (Cliente cliente : getClientes())
+            {
+                Cliente cli;
+                if (id.equals(cliente.getNombre()))
+                {
+                    cli = cliente; 
+                    return cli;
+                }
+           
+            }
+            return null;
+    }
+
     
-}
+    }
+

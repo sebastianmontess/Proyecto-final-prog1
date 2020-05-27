@@ -195,4 +195,25 @@ public class LeerArchivoPlano {
 
     }
 
+      public static byte convertirTipoUsuarios(String codigo)
+    {
+        byte numeroTipo=2;
+
+        switch (codigo)
+        {
+            
+            case "Administrador":
+                numeroTipo = 0;
+                break;
+            case "ALquiler":
+                numeroTipo = 1;
+                break;
+           case "otro":
+                numeroTipo = 2;
+                break;
+        
+               
+        }
+        return numeroTipo;
+    }
 }

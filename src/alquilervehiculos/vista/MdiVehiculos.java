@@ -5,12 +5,21 @@
  */
 package alquilervehiculos.vista;
 
+
 import alquilervehiculos.controlador.GestionUsuario;
 import alquilervehiculos.controlador.GestionVehiculo;
+import alquilervehiculos.excepciones.ClienteExcepcion;
+import alquilervehiculos.excepciones.VehiculoExcepcion;
 import alquilervehiculos.modelo.AbstractVehiculo;
+import alquilervehiculos.modelo.Cliente;
 import alquilervehiculos.modelo.Moto;
+import alquilervehiculos.modelo.TipoUsuario;
 import alquilervehiculos.modelo.Usuario;
+import alquilervehiculos.utilidades.LeerArchivoPlano;
 import java.beans.PropertyVetoException;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -27,6 +36,9 @@ public class MdiVehiculos extends javax.swing.JFrame {
     private GestionUsuario gestionUsuario;
     private Usuario usuarioAutenticado;
     private GestionVehiculo gestionVehiculo;
+    private int tipoUsuario;
+    private GestionUsuario controlUsuario;
+     private LeerArchivoPlano leer;
 
     /**
      * Creates new form MdiVehiculos
@@ -86,6 +98,8 @@ public class MdiVehiculos extends javax.swing.JFrame {
         }
     }
 
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -109,12 +123,33 @@ public class MdiVehiculos extends javax.swing.JFrame {
         JifMoto = new javax.swing.JInternalFrame();
         jScrollPane2 = new javax.swing.JScrollPane();
         TblMoto = new javax.swing.JTable();
+        BtnDevolverMoto = new javax.swing.JButton();
+        BtnAlquilarMoto = new javax.swing.JButton();
         JifCoche = new javax.swing.JInternalFrame();
         jScrollPane4 = new javax.swing.JScrollPane();
         TblCoche = new javax.swing.JTable();
+        BtnDevolverCoche = new javax.swing.JButton();
+        BtnAlquilarCoche = new javax.swing.JButton();
         JifFurgoneta = new javax.swing.JInternalFrame();
         jScrollPane5 = new javax.swing.JScrollPane();
         TblFurgoneta = new javax.swing.JTable();
+        BtnAlquilarFurgoneta = new javax.swing.JButton();
+        BtnDevolverFurgoneta = new javax.swing.JButton();
+        JifAlquilarVehiculos = new javax.swing.JInternalFrame();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        TblCliente = new javax.swing.JTable();
+        JifCrearUsuario = new javax.swing.JInternalFrame();
+        jLabel3 = new javax.swing.JLabel();
+        TxtNombreCrearUsuario = new javax.swing.JTextField();
+        TxtIdentifiacionCrearUsuario = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        TxtCorreoCrearUsu = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        TxtContraseñaCrearUsu = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        BtnCrearUsu = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        CbxTipoUsuario = new javax.swing.JComboBox<>();
         menuBar = new javax.swing.JMenuBar();
         MmuLogin = new javax.swing.JMenu();
         MnuVehiculos = new javax.swing.JMenu();
@@ -263,6 +298,15 @@ public class MdiVehiculos extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(TblMoto);
 
+        BtnDevolverMoto.setText("Devolver");
+
+        BtnAlquilarMoto.setText("Alquilar");
+        BtnAlquilarMoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAlquilarMotoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout JifMotoLayout = new javax.swing.GroupLayout(JifMoto.getContentPane());
         JifMoto.getContentPane().setLayout(JifMotoLayout);
         JifMotoLayout.setHorizontalGroup(
@@ -270,18 +314,29 @@ public class MdiVehiculos extends javax.swing.JFrame {
             .addGroup(JifMotoLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addGroup(JifMotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BtnAlquilarMoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BtnDevolverMoto, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
         JifMotoLayout.setVerticalGroup(
             JifMotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JifMotoLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addGroup(JifMotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JifMotoLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(JifMotoLayout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(BtnAlquilarMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(BtnDevolverMoto, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(327, Short.MAX_VALUE))
         );
 
         desktopPane.add(JifMoto);
-        JifMoto.setBounds(210, 10, 510, 352);
+        JifMoto.setBounds(210, 10, 770, 562);
 
         JifCoche.setClosable(true);
         JifCoche.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -312,21 +367,41 @@ public class MdiVehiculos extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(TblCoche);
 
+        BtnDevolverCoche.setText("Devolver");
+
+        BtnAlquilarCoche.setText("Alquilar");
+        BtnAlquilarCoche.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAlquilarCocheActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout JifCocheLayout = new javax.swing.GroupLayout(JifCoche.getContentPane());
         JifCoche.getContentPane().setLayout(JifCocheLayout);
         JifCocheLayout.setHorizontalGroup(
             JifCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JifCocheLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(14, 14, 14)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addGroup(JifCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BtnAlquilarCoche, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BtnDevolverCoche, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
         JifCocheLayout.setVerticalGroup(
             JifCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JifCocheLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addGroup(JifCocheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JifCocheLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(JifCocheLayout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(BtnAlquilarCoche, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(BtnDevolverCoche, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         desktopPane.add(JifCoche);
@@ -360,25 +435,207 @@ public class MdiVehiculos extends javax.swing.JFrame {
         });
         jScrollPane5.setViewportView(TblFurgoneta);
 
+        BtnAlquilarFurgoneta.setText("Alquilar");
+        BtnAlquilarFurgoneta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAlquilarFurgonetaActionPerformed(evt);
+            }
+        });
+
+        BtnDevolverFurgoneta.setText("Devolver");
+
         javax.swing.GroupLayout JifFurgonetaLayout = new javax.swing.GroupLayout(JifFurgoneta.getContentPane());
         JifFurgoneta.getContentPane().setLayout(JifFurgonetaLayout);
         JifFurgonetaLayout.setHorizontalGroup(
             JifFurgonetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JifFurgonetaLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addGroup(JifFurgonetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BtnAlquilarFurgoneta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BtnDevolverFurgoneta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
         );
         JifFurgonetaLayout.setVerticalGroup(
             JifFurgonetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JifFurgonetaLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(JifFurgonetaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JifFurgonetaLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(BtnAlquilarFurgoneta, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(BtnDevolverFurgoneta, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(JifFurgonetaLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         desktopPane.add(JifFurgoneta);
         JifFurgoneta.setBounds(350, 110, 490, 310);
+
+        JifAlquilarVehiculos.setTitle("Alquilar Vehiculos");
+        JifAlquilarVehiculos.setVisible(false);
+
+        TblCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Nombre", "Identificacion", "Tipo de Usuario"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane6.setViewportView(TblCliente);
+
+        javax.swing.GroupLayout JifAlquilarVehiculosLayout = new javax.swing.GroupLayout(JifAlquilarVehiculos.getContentPane());
+        JifAlquilarVehiculos.getContentPane().setLayout(JifAlquilarVehiculosLayout);
+        JifAlquilarVehiculosLayout.setHorizontalGroup(
+            JifAlquilarVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JifAlquilarVehiculosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(83, Short.MAX_VALUE))
+        );
+        JifAlquilarVehiculosLayout.setVerticalGroup(
+            JifAlquilarVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JifAlquilarVehiculosLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(235, Short.MAX_VALUE))
+        );
+
+        desktopPane.add(JifAlquilarVehiculos);
+        JifAlquilarVehiculos.setBounds(270, 90, 530, 330);
+
+        JifCrearUsuario.setTitle("Crear Usuario");
+        JifCrearUsuario.setVisible(false);
+
+        jLabel3.setText("Nombre:");
+
+        TxtNombreCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtNombreCrearUsuarioActionPerformed(evt);
+            }
+        });
+
+        TxtIdentifiacionCrearUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtIdentifiacionCrearUsuarioActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Identificacion:");
+
+        TxtCorreoCrearUsu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtCorreoCrearUsuActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Correo:");
+
+        TxtContraseñaCrearUsu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtContraseñaCrearUsuActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Contraseña:");
+
+        BtnCrearUsu.setText("Crear Usuario");
+        BtnCrearUsu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCrearUsuActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Tipo de usuario:");
+
+        CbxTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Alquiler", "Cliente", " " }));
+        CbxTipoUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CbxTipoUsuarioActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout JifCrearUsuarioLayout = new javax.swing.GroupLayout(JifCrearUsuario.getContentPane());
+        JifCrearUsuario.getContentPane().setLayout(JifCrearUsuarioLayout);
+        JifCrearUsuarioLayout.setHorizontalGroup(
+            JifCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JifCrearUsuarioLayout.createSequentialGroup()
+                .addGroup(JifCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JifCrearUsuarioLayout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addGroup(JifCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(JifCrearUsuarioLayout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(TxtCorreoCrearUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(JifCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(JifCrearUsuarioLayout.createSequentialGroup()
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(TxtIdentifiacionCrearUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(JifCrearUsuarioLayout.createSequentialGroup()
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(TxtNombreCrearUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(JifCrearUsuarioLayout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addGroup(JifCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(JifCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(CbxTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TxtContraseñaCrearUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(JifCrearUsuarioLayout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(BtnCrearUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(37, Short.MAX_VALUE))
+        );
+        JifCrearUsuarioLayout.setVerticalGroup(
+            JifCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JifCrearUsuarioLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(JifCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TxtNombreCrearUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(JifCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TxtIdentifiacionCrearUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(JifCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TxtCorreoCrearUsu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(JifCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TxtContraseñaCrearUsu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addGroup(JifCrearUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CbxTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47)
+                .addComponent(BtnCrearUsu, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(66, Short.MAX_VALUE))
+        );
+
+        desktopPane.add(JifCrearUsuario);
+        JifCrearUsuario.setBounds(470, 140, 358, 375);
 
         MmuLogin.setMnemonic('f');
         MmuLogin.setText("Menu");
@@ -432,6 +689,11 @@ public class MdiVehiculos extends javax.swing.JFrame {
         MmuLogin.add(MnuUsuarios);
 
         MnuCrearusuario.setText("Crear usuario");
+        MnuCrearusuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnuCrearusuarioActionPerformed(evt);
+            }
+        });
         MmuLogin.add(MnuCrearusuario);
 
         MnuCerrarSesion.setMnemonic('x');
@@ -493,12 +755,39 @@ public class MdiVehiculos extends javax.swing.JFrame {
         TblUsuarios.setModel(model);
 
     }
+ private void llenarTablaUsuario()
+    {
+        DefaultTableModel model = (DefaultTableModel) TblUsuarios.getModel();
+        model.getDataVector().removeAllElements();
+        for (Usuario usuario : controlUsuario.getUsuarios())
+        {
+            model.addRow(usuario.obtenerArregloObjeto());
+
+        }
+        for (Cliente cliente : controlUsuario.getClientes())
+        {
+            model.addRow(cliente.obtenerArregloObjeto());
+        }
+        TblUsuarios.setModel(model);
+
+    }
+  private void llenarTablaCliente()
+    {
+        DefaultTableModel model = (DefaultTableModel) TblCliente.getModel();
+        model.getDataVector().removeAllElements();
+        for (Cliente cliente : controlUsuario.getClientes())
+        {
+            model.addRow(cliente.obtenerArregloObjeto());
+        }
+        TblCliente.setModel(model);
+
+    }
 
 
     private void MnuUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuUsuariosActionPerformed
         // TODO add your handling code here:
-        gestionUsuario.llenarUsuarios();
-        pintarUsuarios();
+        llenarTablaUsuario();
+        llenarTablaCliente();
         JifUsuarios.repaint();
         JifUsuarios.show();
         if (JifUsuarios.isIcon()) {
@@ -682,11 +971,203 @@ public class MdiVehiculos extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_MnuSalirrActionPerformed
 
+    private void TxtNombreCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNombreCrearUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtNombreCrearUsuarioActionPerformed
+
+    private void TxtIdentifiacionCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtIdentifiacionCrearUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtIdentifiacionCrearUsuarioActionPerformed
+
+    private void TxtCorreoCrearUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtCorreoCrearUsuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtCorreoCrearUsuActionPerformed
+
+    private void TxtContraseñaCrearUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtContraseñaCrearUsuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtContraseñaCrearUsuActionPerformed
+
+    private void BtnCrearUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCrearUsuActionPerformed
+        // TODO add your handling code here:
+        
+         controlUsuario.getTipoUsuarios();
+        TipoUsuario[] tipos;
+
+            if (CbxTipoUsuario.getSelectedItem().toString().equals("Administrador") || CbxTipoUsuario.getSelectedItem().toString().equals("Alquiler"))
+            {
+                if (TxtNombreCrearUsuario.getText() == null || TxtNombreCrearUsuario.getText().compareTo("") == 0)
+                {
+                    JOptionPane.showMessageDialog(this, "Debe escribir su nombre", "Datos Faltantes", 2);
+                }
+                else if (TxtIdentifiacionCrearUsuario.getText() == null || TxtIdentifiacionCrearUsuario.getText().compareTo("") == 0)
+                {
+                    JOptionPane.showMessageDialog(this, "Debe escribir su identificacion", "Datos Faltantes", 2);
+                }
+                else if (TxtCorreo.getText() == null || TxtCorreo.getText().compareTo("") == 0)
+                {
+                    JOptionPane.showMessageDialog(this, "Debe escribir un correo electronico", "Datos Faltantes", 2);
+                }
+            else if (TxtContraseñaCrearUsu.getText() == null || TxtContraseñaCrearUsu.getText().compareTo("") == 0)
+                {
+                    JOptionPane.showMessageDialog(this, "Debe escribir una contraseña", "Datos Faltantes", 2);
+                }
+                else
+                {
+
+                    String codigo = CbxTipoUsuario.getSelectedItem().toString().toLowerCase();
+                    byte numTipo = leer.convertirTipoUsuarios(codigo);
+                    tipos = controlUsuario.getTipoUsuarios();
+                    Usuario usuario = new Usuario(TxtIdentifiacionCrearUsuario.getText(), TxtNombreCrearUsuario.getText(), TxtCorreo.getText(), TxtContraseñaCrearUsu.getText(), tipos[numTipo]);
+
+                    try
+                    {
+                        controlUsuario.adicionarUsuario(usuario);
+                        llenarTablaUsuario();
+                        llenarTablaCliente();
+                        TxtNombreCrearUsuario.setText("");
+                        TxtIdentifiacionCrearUsuario.setText("");
+                        TxtCorreo.setText("");
+                        TxtContraseñaCrearUsu.setText("");
+                    }
+                    catch (ClienteExcepcion ex)
+                    {
+                        JOptionPane.showMessageDialog(this,
+                                ex.getMessage(), "error en el usuario", 0);
+                    }
+                }
+            }
+            else
+            {
+                if (TxtNombreCrearUsuario.getText() == null || TxtNombreCrearUsuario.getText().compareTo("") == 0)
+                {
+                    JOptionPane.showMessageDialog(this, "Debe escribir su nombre", "Datos Faltantes", 2);
+                }
+                else if (TxtIdentifiacionCrearUsuario.getText() == null || TxtIdentifiacionCrearUsuario.getText().compareTo("") == 0)
+                {
+                    JOptionPane.showMessageDialog(this, "Debe escribir su identificacion", "Datos Faltantes", 2);
+                }
+                
+                //Crear cliente 
+                Cliente cliente = new Cliente(TxtNombreCrearUsuario.getText(), TxtIdentifiacionCrearUsuario.getText());
+                try
+                {
+                    controlUsuario.adicionarCliente(cliente);
+                    llenarTablaUsuario();
+                    llenarTablaCliente();
+                    TxtNombreCrearUsuario.setText("");
+                    TxtIdentifiacionCrearUsuario.setText("");
+                    TxtCorreo.setText("");
+                    TxtContraseñaCrearUsu.setText("");
+                }
+                catch (VehiculoExcepcion ex)
+                {
+                    JOptionPane.showMessageDialog(this,
+                            ex.getMessage(), "error en el cliente", 0);
+                }
+
+            }
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_BtnCrearUsuActionPerformed
+
+    private void CbxTipoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbxTipoUsuarioActionPerformed
+        // TODO add your handling code here:
+        
+         if (CbxTipoUsuario.getSelectedItem().toString().equals("Client"))
+        {
+            TxtCorreo.setEnabled(false);
+            TxtContraseñaCrearUsu.setEnabled(false);
+        }
+        else
+        {
+            TxtContraseñaCrearUsu.setEnabled(true);
+            TxtCorreo.setEnabled(true);
+        }
+    }//GEN-LAST:event_CbxTipoUsuarioActionPerformed
+
+    private void MnuCrearusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuCrearusuarioActionPerformed
+        // TODO add your handling code here:
+        JifCrearUsuario.repaint();
+       JifCrearUsuario.show();
+        if (JifCrearUsuario.isIcon())
+        {
+            try
+            {
+                JifCrearUsuario.setMaximum(true);
+            }
+            catch (PropertyVetoException ex)
+            {
+                Logger.getLogger(MdiVehiculos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_MnuCrearusuarioActionPerformed
+
+    private void BtnAlquilarMotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAlquilarMotoActionPerformed
+        // TODO add your handling code here:
+        
+        JifAlquilarVehiculos.show();
+        if (JifAlquilarVehiculos.isIcon()) {
+            try {
+                JifAlquilarVehiculos.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(MdiVehiculos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_BtnAlquilarMotoActionPerformed
+
+    private void BtnAlquilarCocheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAlquilarCocheActionPerformed
+        // TODO add your handling code here:
+        
+        JifAlquilarVehiculos.show();
+        if (JifAlquilarVehiculos.isIcon()) {
+            try {
+                JifAlquilarVehiculos.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(MdiVehiculos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_BtnAlquilarCocheActionPerformed
+
+    private void BtnAlquilarFurgonetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAlquilarFurgonetaActionPerformed
+        // TODO add your handling code here:
+        
+        JifAlquilarVehiculos.show();
+        if (JifAlquilarVehiculos.isIcon()) {
+            try {
+                JifAlquilarVehiculos.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(MdiVehiculos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_BtnAlquilarFurgonetaActionPerformed
+TipoUsuario[] tipoUsuarios = new TipoUsuario[3];
+
+    private void llenarTiposUsuario() {
+
+        tipoUsuarios[0] = new TipoUsuario("1", "Administrador");
+        tipoUsuarios[1] = new TipoUsuario("2", "Alquiler");
+        tipoUsuarios[2] = new TipoUsuario("2", "Cliente");
+    }
+
 ////
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnAlquilarCoche;
+    private javax.swing.JButton BtnAlquilarFurgoneta;
+    private javax.swing.JButton BtnAlquilarMoto;
+    private javax.swing.JButton BtnCrearUsu;
+    private javax.swing.JButton BtnDevolverCoche;
+    private javax.swing.JButton BtnDevolverFurgoneta;
+    private javax.swing.JButton BtnDevolverMoto;
     private javax.swing.JButton BtnIngresar;
+    private javax.swing.JComboBox<String> CbxTipoUsuario;
     private javax.swing.JInternalFrame JflmLogin;
+    private javax.swing.JInternalFrame JifAlquilarVehiculos;
     private javax.swing.JInternalFrame JifCoche;
+    private javax.swing.JInternalFrame JifCrearUsuario;
     private javax.swing.JInternalFrame JifFurgoneta;
     private javax.swing.JInternalFrame JifMoto;
     private javax.swing.JInternalFrame JifUsuarios;
@@ -702,21 +1183,34 @@ public class MdiVehiculos extends javax.swing.JFrame {
     private javax.swing.JMenuItem MnuSalirr;
     private javax.swing.JMenuItem MnuUsuarios;
     private javax.swing.JMenu MnuVehiculos;
+    private javax.swing.JTable TblCliente;
     private javax.swing.JTable TblCoche;
     private javax.swing.JTable TblFurgoneta;
     private javax.swing.JTable TblMoto;
     private javax.swing.JTable TblUsuarios;
     private javax.swing.JPasswordField TxtContraseña;
+    private javax.swing.JTextField TxtContraseñaCrearUsu;
     private javax.swing.JTextPane TxtCorreo;
+    private javax.swing.JTextField TxtCorreoCrearUsu;
+    private javax.swing.JTextField TxtIdentifiacionCrearUsuario;
+    private javax.swing.JTextField TxtNombreCrearUsuario;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
 
+   
+ 
 }
