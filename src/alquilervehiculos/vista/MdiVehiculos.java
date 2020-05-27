@@ -787,7 +787,7 @@ public class MdiVehiculos extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Cliente", "Vehiculo", "Fecha de entrega", "Fecha de devolucion"
+                "Vehiculo", "Cliente", "Fecha de entrega", "Fecha de devolucion"
             }
         ));
         jScrollPane7.setViewportView(TblVehiculosAlquilados);
@@ -806,7 +806,7 @@ public class MdiVehiculos extends javax.swing.JFrame {
             .addGroup(JifInformeAlquiladosLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         desktopPane.add(JifInformeAlquilados);
