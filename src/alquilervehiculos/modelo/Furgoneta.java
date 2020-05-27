@@ -19,6 +19,12 @@ public class Furgoneta  extends AbstractVehiculo implements Serializable{
         this.capacidad = capacidad;
     }
 
+    public Furgoneta(String matricula, int km, boolean estado, double valorAlquiler) {
+       super(matricula, km, estado, valorAlquiler);
+    }
+
+    
+
     public short getCapacidad() {
         return capacidad;
     }

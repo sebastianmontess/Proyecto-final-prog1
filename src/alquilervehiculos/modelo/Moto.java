@@ -12,6 +12,12 @@ public class Moto extends AbstractVehiculo implements Serializable{
         this.casco=casco;
     }
 
+    public Moto(String matricula, int km, boolean estado, double valorAlquiler) {
+       super(matricula, km, estado, valorAlquiler);
+    }
+
+    
+
     public boolean isCasco() {
         return casco;
     }

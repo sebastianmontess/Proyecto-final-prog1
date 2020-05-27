@@ -12,6 +12,12 @@ public class Coche extends  AbstractVehiculo implements Serializable{
         this.extras=extras;
     }
 
+    public Coche(String matricula, int km, boolean estado, double valorAlquiler) {
+        super(matricula, km, estado, valorAlquiler);
+    }
+
+    
+
     public boolean isExtras() {
         return extras;
     }

@@ -128,9 +128,34 @@ public class GestionVehiculo  implements Serializable{
         vehiculosAlquilados.add(alquilado);
     }
  
+ public void adicionarVehiculo(AbstractVehiculo vehiculo) throws VehiculoExcepcion
+    {
+        if (validarExistenciaVehiculo(vehiculo))
+        {
+
+            throw new VehiculoExcepcion("El vehiculo con matricula: " + vehiculo.getMatricula()
+                    + " ya existe");
+        }
+        else
+        {
+
+            vehiculos.add(vehiculo);
+
+        }
+    }
  
  
- 
- 
+  private boolean validarExistenciaVehiculo(AbstractVehiculo vehiculo)
+    {
+        for (AbstractVehiculo vehi : this.vehiculos)
+        {
+            if (vehi.getMatricula().compareTo(vehiculo.getMatricula()) == 0)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
  
 }
