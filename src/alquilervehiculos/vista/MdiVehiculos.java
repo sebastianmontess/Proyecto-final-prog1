@@ -1642,11 +1642,7 @@ private void llenarTablaInforme()
         Date hoy = new Date();
         Date fecha = sumarRestarDiasFecha(hoy);
         
-//        gestionVehiculo.llenarVehiculos();
 
-//        for (AbstractVehiculo vehi : gestionVehiculo.obtenerVehiculos("Coche")) {
-
-//            if (TxtMatriculaAlquilar.getText() == vehi.getMatricula()) {
 
                 if (TxtNombreClienteAlquiler.getText() == null || TxtNombreClienteAlquiler.getText().compareTo("") == 0)
                 {
@@ -1672,13 +1668,39 @@ private void llenarTablaInforme()
                 {
                     JOptionPane.showMessageDialog(this, "La fecha de devolucion es anterior a la fecha de alquiler");
                 } else {
-
-                    if (gestionVehiculo.encontrarVehiculo(TxtMatriculaAlquilar.getText()).isEstado() == false) {
-
-                        JOptionPane.showMessageDialog(this, "El vehículo de matricula " + TxtMatriculaAlquilar.getText()
+                    ///aqui llamamos a tu la funcion para ver si el vehiculo existe.
+                    /// si existe lo retorna, si no existe, retorna Null
+                      AbstractVehiculo vehiculo = gestionVehiculo.encontrarVehiculo(TxtMatriculaAlquilar.getText());
+                       
+                       //Entonces , aqui primero que todo,vamos a verificar si vehiculo esta igual a Null
+                       //si si, significa que no esxiste...
+                    if (vehiculo == null) {
+                         JOptionPane.showMessageDialog(this, "El vehículo de matricula " + TxtMatriculaAlquilar.getText()
+                                + " no se encuentra");
+                        TxtMatriculaAlquilar.setText("");
+                           }
+                        // si vehiculo != null entonces si existe. Entonces ahora si puede seguir el codigo.
+                         else if (vehiculo.isEstado() == false){
+                                 JOptionPane.showMessageDialog(this, "El vehículo de matricula " + TxtMatriculaAlquilar.getText()
                                 + " se encuentra ocupado");
                         TxtMatriculaAlquilar.setText("");
-                    } else {
+                                
+                                }else {
+                    ///aqui llamamos a tu la funcion para ver si el vehiculo existe.
+                    /// si existe lo retorna, si no existe, retorna Null
+                      Cliente cliente = gestionUsuario.encontrarCliente(TxtNombreClienteAlquiler.getText());
+                       
+                       //Entonces , aqui primero que todo,vamos a verificar si vehiculo esta igual a Null
+                       //si si, significa que no esxiste...
+                    if (cliente == null) {
+                         JOptionPane.showMessageDialog(this, "El cliente de nombre " + TxtNombreClienteAlquiler.getText()
+                                + " no se encuentra");
+                        TxtMatriculaAlquilar.setText("");
+                           }
+                        
+                         /////////////////////////
+                         
+                     else {
 
                         AlquilaVehiculo alquilado = new AlquilaVehiculo(gestionVehiculo.encontrarVehiculo(TxtMatriculaAlquilar.getText()),
                                 jDateEntregaAlquiler.getDate(), jDateDevolucionAlquiler.getDate(),
@@ -1704,13 +1726,7 @@ private void llenarTablaInforme()
                     }
                 }
 
-//            } else {
-//
-//                JOptionPane.showMessageDialog(null, "Vehiculo no esta  registrado ");
-//            }
-//
-//        }
-
+//   
 
     }//GEN-LAST:event_BtnAlquilarActionPerformed
 
@@ -2112,5 +2128,7 @@ private void llenarTablaInforme()
     private javax.swing.JTable jTable1;
     private javax.swing.JMenuBar menuBar;
     // End of variables declaration//GEN-END:variables
+
+   
 
 }

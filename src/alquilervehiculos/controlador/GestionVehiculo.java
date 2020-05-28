@@ -157,5 +157,31 @@ public class GestionVehiculo  implements Serializable{
         return false;
     }
 
+ public void vehiculoNoEncontrado(AbstractVehiculo vehiculo) throws VehiculoExcepcion
+    {
+        if (ValidarVehiculo(vehiculo))
+        {
+/////////gritar que esa matricula ya existe
+            throw new VehiculoExcepcion("El vehiculo con matricula: " + vehiculo.getMatricula()
+                    + " no existe");
+        }
+        else
+        {
+///////agrego a la lista
+            vehiculos.add(vehiculo);
+
+        }
+    }
  
+  private boolean ValidarVehiculo(AbstractVehiculo vehiculo)
+    {
+        for (AbstractVehiculo vehi : this.vehiculos)
+        {
+            if (vehi.getMatricula().compareTo(vehiculo.getMatricula()) == 0)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
