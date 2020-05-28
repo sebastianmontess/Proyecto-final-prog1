@@ -132,13 +132,13 @@ public class GestionVehiculo  implements Serializable{
     {
         if (validarExistenciaVehiculo(vehiculo))
         {
-
+/////////gritar que esa matricula ya existe
             throw new VehiculoExcepcion("El vehiculo con matricula: " + vehiculo.getMatricula()
                     + " ya existe");
         }
         else
         {
-
+///////agrego a la lista
             vehiculos.add(vehiculo);
 
         }
