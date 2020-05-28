@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 
 public class Moto extends AbstractVehiculo implements Serializable{
-    private boolean casco;
+    public boolean casco;
 
     public Moto(String matricula, int km, boolean estado, double valorAlquiler, boolean casco) {
         super(matricula, km, estado, valorAlquiler);
@@ -67,6 +67,29 @@ public class Moto extends AbstractVehiculo implements Serializable{
      public Object[] obtenerArregloObjeto(){
         Object[] data={ getMatricula(),getKm(),isEstado(),getValorAlquiler(),isCasco()};
         return data;
+    }
+
+    @Override
+    public void mostrarDatos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void devolver(int kmFinal) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void alquilar() {
+         
+        setEstado(false);
+    
+
+    }
+
+    @Override
+    public double calcularAlquier(int dias) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 

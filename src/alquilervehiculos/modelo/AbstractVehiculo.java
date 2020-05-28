@@ -5,21 +5,32 @@
  */
 package alquilervehiculos.modelo;
 
+import alquilervehiculos.vista.VehiculoAble;
+
 /**
  *
  * @author junor
  */
-abstract public class AbstractVehiculo {
+abstract public class AbstractVehiculo implements VehiculoAble {
     public String matricula;
     public int km;
     public boolean estado;
     public double valorAlquiler;
+    public Object otro; 
 
     public AbstractVehiculo(String matricula, int km, boolean estado, double valorAlquiler) {
         this.matricula = matricula;
         this.km = km;
         this.estado = estado;
         this.valorAlquiler = valorAlquiler;
+    }
+
+    public Object getOtro() {
+        return otro;
+    }
+
+    public void setOtro(Object otro) {
+        this.otro = otro;
     }
 
     public String getMatricula() {
@@ -58,22 +69,17 @@ abstract public class AbstractVehiculo {
     
     
     
-    public void alquilar ()
-    {
-        
-    }
+    @Override
+    public abstract void mostrarDatos();
+
+    public abstract double calcularAlquiler(int dias);
+
+    @Override
+    public abstract void devolver(int kmFinal);
+
+    @Override
+    public abstract void alquilar();
     
-    public void devolver (int kmFinal)
-    {
-        
-    }
-    
-     public  abstract double calcularAlquiler(int km);
-     
-     public void mostrarDatos()
-    {
-        
-    }
      
         public abstract Object[] obtenerArregloObjeto();
         

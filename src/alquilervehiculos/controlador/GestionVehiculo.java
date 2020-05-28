@@ -96,11 +96,11 @@ public class GestionVehiculo  implements Serializable{
                     }
                     break;
 
-//                case "Vehiculos":
-//                    if (vehiculo instanceof AbstractVehiculo) {
-//                        listaTemporal.add(vehiculo);
-//                    }
-//                    break;
+                case "Vehiculos":
+                    if (vehiculo instanceof AbstractVehiculo) {
+                        listaTemporal.add(vehiculo);
+                    }
+                    break;
 
             }
 

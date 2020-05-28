@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @author junor
  */
 public class Furgoneta  extends AbstractVehiculo implements Serializable{
-    private short capacidad;
+    public short capacidad;
 
     public Furgoneta(String matricula, int km, boolean estado, double valorAlquiler,short capacidad) {
         super(matricula, km, estado, valorAlquiler);
@@ -79,6 +79,29 @@ public class Furgoneta  extends AbstractVehiculo implements Serializable{
     public Object[] obtenerArregloObjeto() {
          Object[] data={ getMatricula(),getKm(),isEstado(),getValorAlquiler(),getCapacidad()};
         return data;
+    }
+
+    @Override
+    public void mostrarDatos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void devolver(int kmFinal) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void alquilar() {
+        
+        setEstado(false);
+    
+
+    }
+
+    @Override
+    public double calcularAlquier(int dias) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

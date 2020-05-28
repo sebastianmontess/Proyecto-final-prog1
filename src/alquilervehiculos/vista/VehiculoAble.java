@@ -10,12 +10,14 @@ package alquilervehiculos.vista;
  * @author junor
  */
 public interface VehiculoAble {
-      public void alquilar();
+      
+    public void alquilar();
     
     public void devolver(int kmFinal);
     
-    public double calcularAlquier(int km);
+    public double calcularAlquier(int dias);
 
+    public void mostrarDatos( );
     @Override
     public String toString();
     
