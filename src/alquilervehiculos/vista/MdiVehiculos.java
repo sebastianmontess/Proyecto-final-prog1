@@ -600,7 +600,7 @@ public class MdiVehiculos extends javax.swing.JFrame {
 
         jLabel8.setText("Matricula Del Vehiculo:");
 
-        jLabel9.setText("Cedula del Cliente");
+        jLabel9.setText("Nombre del Cliente:");
 
         jLabel10.setText("Fecha De Entrega:");
 
@@ -692,7 +692,7 @@ public class MdiVehiculos extends javax.swing.JFrame {
             .addGroup(JifAlquilarVehiculosLayout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addComponent(BtnPdfClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addGroup(JifAlquilarVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -715,7 +715,7 @@ public class MdiVehiculos extends javax.swing.JFrame {
                 .addGroup(JifAlquilarVehiculosLayout.createSequentialGroup()
                     .addGap(21, 21, 21)
                     .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(331, Short.MAX_VALUE)))
+                    .addContainerGap(335, Short.MAX_VALUE)))
         );
 
         desktopPane.add(JifAlquilarVehiculos);
@@ -1088,7 +1088,7 @@ public class MdiVehiculos extends javax.swing.JFrame {
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addComponent(BtnPdfVehiculos, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         desktopPane.add(JifInformeVehiculos);
@@ -1667,13 +1667,17 @@ private void llenarTablaInforme()
                 else if (jDateEntregaAlquiler.getDate().compareTo(jDateDevolucionAlquiler.getDate()) > 0) 
                 {
                     JOptionPane.showMessageDialog(this, "La fecha de devolucion es anterior a la fecha de alquiler");
-                } else {
+                }  
+//                else if (jDateEntregaAlquiler.getDate().compareTo(jDateDevolucionAlquiler.getDate()) >= 0) 
+//                {
+//                    JOptionPane.showMessageDialog(this, "El vehiculo esta disponible");
+//                }else {
                     ///aqui llamamos a tu la funcion para ver si el vehiculo existe.
                     /// si existe lo retorna, si no existe, retorna Null
                       AbstractVehiculo vehiculo = gestionVehiculo.encontrarVehiculo(TxtMatriculaAlquilar.getText());
                        
                        //Entonces , aqui primero que todo,vamos a verificar si vehiculo esta igual a Null
-                       //si si, significa que no esxiste...
+                       //si si, significa que no existe...
                     if (vehiculo == null) {
                          JOptionPane.showMessageDialog(this, "El vehículo de matricula " + TxtMatriculaAlquilar.getText()
                                 + " no se encuentra");
